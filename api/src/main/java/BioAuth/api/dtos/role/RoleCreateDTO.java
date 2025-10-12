@@ -4,5 +4,6 @@ import jakarta.validation.constraints.NotNull;
 
 public record RoleCreateDTO(
 	@NotNull String name,
-	@NotNull String description
+	@NotNull String description,
+	@NotNull Long levelOrder
 ){}

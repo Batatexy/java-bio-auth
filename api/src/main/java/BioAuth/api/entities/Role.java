@@ -11,32 +11,38 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "ROLES")
 public class Role {
 	@Id
 	@Column(name = "role_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "role_id_seq", sequenceName = "role_id_seq", initialValue = 4)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_id_seq")
 	private Long id;
 
 	public Role() {}
-    public Role(Long id, @NotBlank String name, @NotBlank String description, List<UserRole> userRoles) {
-		this.id = id;
+    public Role(@NotBlank String name, @NotBlank String description, Long levelOrder) {
 		this.name = name;
 		this.description = description;
-		this.userRoles = userRoles;
+		this.levelOrder = levelOrder;
 	}
 
 	@NotBlank
-    @Column(nullable = false, unique = true)
+	@Column(nullable = false)
     private String name;
 
     @NotBlank
     @Column(nullable = false)
     private String description;
+    
+	@NotNull
+    @Column(nullable = false)
+    private Long levelOrder;
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserRole> userRoles = new ArrayList<>();
@@ -49,6 +55,9 @@ public class Role {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+    
+    public Long getLevelOrder() { return levelOrder; }
+    public void setLevelOrder(Long levelOrder) { this.levelOrder = levelOrder; }
 
     public List<UserRole> getUserRoles() { return userRoles; }
     public void setUserRoles(List<UserRole> userRoles) { this.userRoles = userRoles; }

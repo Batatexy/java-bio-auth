@@ -1,9 +1,12 @@
 package BioAuth.api.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import BioAuth.api.dtos.userrole.UserRoleCreateDTO;
+import BioAuth.api.dtos.userrole.UserRoleListResponseDTO;
 import BioAuth.api.dtos.userrole.UserRoleResponseDTO;
 import BioAuth.api.entities.Role;
 import BioAuth.api.entities.User;
@@ -39,10 +42,15 @@ public class UserRoleService {
 		this.roleMapper = roleMapper;
 	}
 
-//	public UserRoleListResponseDTO list() {
-//		List<UserRoleResponseDTO> userRoles = userRoleRepository.findAll().stream().map(userRoleMapper::toDTO).toList();
-//		return new UserRoleListResponseDTO(userRoles);
-//	}
+	public UserRoleListResponseDTO list() {
+		List<UserRoleResponseDTO> userRoles = userRoleRepository.findAll()
+				.stream().map(userRole -> {
+					User user = userRole.getUser();
+					Role role = userRole.getRole();
+					return new UserRoleResponseDTO(userRole.getId(), userMapper.toDTO(user), roleMapper.toDTO(role));
+				}).toList();
+		return new UserRoleListResponseDTO(userRoles);
+	}
 
 	public UserRoleResponseDTO findById(@NotNull Long id) {
 		UserRole userRole = userRoleRepository.findById(id).get();
