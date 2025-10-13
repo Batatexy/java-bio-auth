@@ -1,10 +1,9 @@
 package BioAuth.api.dtos.user;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 public record UserCreateDTO(
-	@NotNull String fullName,
-	@NotNull String email,
-	@NotNull String password,
-	String image
+	@NotBlank String fullName,
+	@NotBlank String email,
+	@NotBlank String password
 ){}

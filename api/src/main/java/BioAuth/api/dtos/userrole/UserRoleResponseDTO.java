@@ -1,10 +1,12 @@
 package BioAuth.api.dtos.userrole;
 
+import java.util.List;
+
 import BioAuth.api.dtos.role.RoleResponseDTO;
 import BioAuth.api.dtos.user.UserResponseDTO;
 
 public record UserRoleResponseDTO(
 	Long id,
-	UserResponseDTO user, 
-	RoleResponseDTO role
+	UserResponseDTO user,
+	List<RoleResponseDTO> roles
 ){}

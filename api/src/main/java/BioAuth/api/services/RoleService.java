@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import BioAuth.api.dtos.role.RoleCreateDTO;
 import BioAuth.api.dtos.role.RoleListResponseDTO;
 import BioAuth.api.dtos.role.RoleResponseDTO;
+import BioAuth.api.dtos.role.RoleUpdateDTO;
 import BioAuth.api.entities.Role;
 import BioAuth.api.mappers.RoleMapper;
 import BioAuth.api.repositories.RoleRepository;
@@ -46,5 +47,16 @@ public class RoleService {
 	public RoleResponseDTO create(@Valid @NotNull RoleCreateDTO RoleCreateDTO) {
 		Role Role = roleMapper.toEntity(RoleCreateDTO);
 		return roleMapper.toDTO(roleRepository.save(Role));
+	}
+
+	@Transactional
+	public RoleResponseDTO update(@NotNull Long id, @Valid @NotNull RoleUpdateDTO roleUpdateDTO) {
+		Role role = roleRepository.findById(id).orElseThrow(() -> new RuntimeException("UserRole não encontrado"));
+
+		role.setName(roleUpdateDTO.name());
+		role.setDescription(roleUpdateDTO.description());
+		role.setLevelOrder(roleUpdateDTO.levelOrder());
+		
+		return roleMapper.toDTO(roleRepository.save(role));
 	}
 }

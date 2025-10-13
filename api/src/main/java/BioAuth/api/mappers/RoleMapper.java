@@ -13,11 +13,7 @@ public class RoleMapper {
 	}
 	
 	public Role toEntity(RoleCreateDTO roleCreateDTO) {
-		Role role = new Role();
-		role.setName(roleCreateDTO.name());
-		role.setDescription(roleCreateDTO.description());
-		role.setLevelOrder(roleCreateDTO.levelOrder());
-		return role;
+		return new Role(roleCreateDTO.name(), roleCreateDTO.description(), roleCreateDTO.levelOrder());
 	}
 	
 }

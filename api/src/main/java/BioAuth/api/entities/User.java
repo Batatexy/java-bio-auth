@@ -3,6 +3,7 @@ package BioAuth.api.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +11,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -24,14 +24,11 @@ public class User {
 	private Long id;
 
 	public User() {}
-	public User(Long id, @NotBlank String fullName, @NotBlank String email, @NotBlank String password, byte[] image,
-			List<UserRole> userRoles) {
-		this.id = id;
+	public User(@NotBlank String fullName, @NotBlank String email, @NotBlank String password, byte[] image) {
 		this.fullName = fullName;
 		this.email = email;
 		this.password = password;
 		this.image = image;
-		this.userRoles = userRoles;
 	}
 
 	@NotBlank
@@ -46,8 +43,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Lob
+	@Basic(fetch = FetchType.LAZY)
     private byte[] image;
+
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserRole> userRoles = new ArrayList<>();

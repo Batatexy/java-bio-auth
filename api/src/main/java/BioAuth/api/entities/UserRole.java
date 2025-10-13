@@ -20,8 +20,7 @@ public class UserRole {
 	private Long id;
 
 	public UserRole() {}
-    public UserRole(Long id, @NotNull User user, @NotNull Role role) {
-		this.id = id;
+	public UserRole(@NotNull User user, @NotNull Role role) {
 		this.user = user;
 		this.role = role;
 	}

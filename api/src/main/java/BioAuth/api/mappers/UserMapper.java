@@ -13,11 +13,11 @@ public class UserMapper {
 	}
 
 	public User toEntity(UserCreateDTO userCreateDTO, byte[] imageBytes, String password) {
-		User user = new User();
-		user.setFullName(userCreateDTO.fullName());
-		user.setEmail(userCreateDTO.email());
-		user.setEmail(password);
-		user.setImage(imageBytes);
-		return user;
+		return new User(userCreateDTO.fullName(), userCreateDTO.email(), password, imageBytes);
 	}
+
+	public User toUpdateEntity(User user, byte[] imageBytes, String password) {
+		return new User(user.getFullName(), user.getEmail(), password, imageBytes);
+	}
+
 }
