@@ -1,0 +1,16 @@
+
+
+@if (isLoading$ | async) {
+  @let showSpinner = showSpinner$ | async;
+
+  <div [ngClass]="showSpinner ? 'loading-overlay' : 'loading-overlay-delay'">
+    @if (showSpinner) {
+      <div class="loading-overlay">
+      <!-- From Uiverse.io by barisdogansutcu -->
+      <svg viewBox="25 25 50 50">
+        <circle r="20" cy="50" cx="50"></circle>
+      </svg>
+    </div>
+    }
+  </div>
+}

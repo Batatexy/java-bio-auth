@@ -1,0 +1,32 @@
+<div class="border border-gray-800 rounded-lg shadow-lg bg-white cursor-pointer
+transition-transform duration-200 hover:scale-102">
+
+    <div>
+      <img class="rounded-t-lg w-full h-50 object-cover"
+      [src]="user.image ? 'data:image/png;base64,' + user.image : '/no-profile-image.png'"
+      [alt]="user.fullName"
+      />
+
+      <div class="flex justify-end h-0 relative bottom-17 right-0.5">
+        <img class="rounded-lg w-12 h-16 object-cover"
+        src="https://www.researchgate.net/publication/373077722/figure/fig15/AS:11431281181039914@1691841971200/Figura-27-Datilograma-com-marcacao-dos-pontos-caracteristicos-com-impressao-questionada.jpg">
+      </div>
+    </div>
+
+    <div class="pt-2 pl-3 pr-3">
+        <h5 class="text-xl font-bold tracking-tight text-gray-800">{{user.fullName}}</h5>
+
+        <div class="flex items-center gap-1 pb-3">
+          <svg class="h-4 w-4 text-gray-500 relative top-0.5"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z"/>  <rect x="3" y="5" width="18" height="14" rx="2" />
+          <polyline points="3 7 12 13 21 7" />
+        </svg>
+
+          <p class="pb-5.5 text-gray-500 h-0 text-ellipsis whitespace-nowrap overflow-hidden">{{user.email}}</p>
+        </div>
+
+    </div>
+</div>
+
+
+

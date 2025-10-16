@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 
 import BioAuth.api.dtos.role.RoleResponseDTO;
 import BioAuth.api.dtos.userrole.UserRoleCreateDTO;
@@ -26,8 +25,6 @@ import BioAuth.api.repositories.UserRoleRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
-
-@Validated
 @Service
 public class UserRoleService {
 

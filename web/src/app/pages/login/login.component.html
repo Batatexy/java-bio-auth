@@ -1,3 +1,81 @@
-<p>
-  login works!
-</p>
+<app-loading />
+
+<div class="custom-login bg-linear-to-r from-gray-800 to-gray-500 pb-4.5">
+  <form [formGroup]="loginForm" class="px-6 w-full sm:w-150" autocomplete="off">
+
+    <h2 class="text-2xl font-bold mb-4 text-white">
+      @if(login){Login}@else {Registrar}
+    </h2>
+
+    @if(!login){
+      <!-- <label for="name" class="block text-sm font-medium text-white ">Nome:</label>
+      <div class="relative mb-4">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+          <svg class="h-4 w-4 text-gray-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+          fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>
+          <circle cx="9" cy="7" r="4" />  <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg>
+        </div>
+
+        <input formControlName="name" type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+        focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="seuNome@gmail.com" autocomplete="off">
+      </div> -->
+    }
+
+    <label for="email" class="block text-sm font-medium text-white ">Email:</label>
+    <div class="relative">
+      <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+        <svg class="h-4 w-4 text-gray-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+        fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>
+        <rect x="3" y="5" width="18" height="14" rx="2" />  <polyline points="3 7 12 13 21 7" /></svg>
+      </div>
+
+      <input formControlName="email" type="text" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+      focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="seuNome@gmail.com" autocomplete="off">
+    </div>
+
+    <label for="userPassword" class="pt-4 block text-sm font-medium text-white ">Senha:</label>
+    <div class="relative">
+      <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+        <svg class="h-4 w-4 text-gray-500"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"
+        stroke-linecap="round"  stroke-linejoin="round">  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+        <path d="M7 11V7a5 5 0 0 1 9.9-1" /> </svg>
+      </div>
+
+      <input formControlName="userPassword" type="password" id="userPassword" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+      focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5" placeholder="SenhaFraca123" autocomplete="off">
+    </div>
+
+    <!-- <label for="" class="pt-4 block text-sm font-medium text-white">Digitais:</label>
+    <div class="flex items-center justify-center w-full">
+        <label for="userFingerPrints" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 ">
+            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                <svg class="w-8 h-8 mb-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                </svg>
+                <p class="mb-2 text-sm text-gray-500 "><span class="font-semibold">Clique para enviar</span> ou arraste e solte</p>
+                <p class="text-xs text-gray-500 ">PNG, JPG ou WEBP</p>
+            </div>
+            <input formControlName="userFingerPrints"  id="userFingerPrints" type="file" class="hidden" />
+        </label>
+    </div> -->
+
+    <div class="flex justify-between mt-4 gap-3">
+      @if(login){
+        <button type="button" class="w-full py-2.5 px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg
+        border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10" (click)="login=false">Cadastro</button>
+
+        <button type="button" class="w-full py-2.5 px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg
+        border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10" (click)="onLogin()">Entrar</button>
+      }@else {
+        <button type="button" class="w-full py-2.5 px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg
+        border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10" (click)="login=true">Login</button>
+
+        <button type="button" class="w-full py-2.5 px-5 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg
+        border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10">Cadastrar</button>
+      }
+
+
+    </div>
+  </form>
+</div>

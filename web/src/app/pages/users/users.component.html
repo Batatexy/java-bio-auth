@@ -1,3 +1,9 @@
-<p>
-  users works!
-</p>
+<div class="p-4">
+  <h2 class="text-2xl font-bold mb-4 text-gray-800">Usuários</h2>
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 items-stretch">
+    @for (user of userList?.users; track $index)
+    {
+      <app-userCard [user]="user" (click)="onView(user.id)" />
+    }
+  </div>
+</div>

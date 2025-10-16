@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
 import BioAuth.api.dtos.user.UserCreateDTO;
+import BioAuth.api.dtos.user.UserFindByEmailAndPasswordDTO;
 import BioAuth.api.dtos.user.UserListResponseDTO;
 import BioAuth.api.dtos.user.UserResponseDTO;
 import BioAuth.api.dtos.user.UserUpdateDTO;
@@ -20,7 +20,6 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
-@Validated
 @Service
 public class UserService {
 
@@ -40,6 +39,10 @@ public class UserService {
 
 	public UserResponseDTO findById(@NotNull Long id) {
 		return userMapper.toDTO(userRepository.findById(id).get());
+	}
+
+	public UserResponseDTO findByEmailAndPassword(@Valid UserFindByEmailAndPasswordDTO userDTO) {
+		return userMapper.toDTO(userRepository.findByEmailAndPassword(userDTO.email(), userDTO.password()).get());
 	}
 
 	public Optional<User> findUserById(@NotNull Long id) {

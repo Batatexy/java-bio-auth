@@ -2,11 +2,12 @@ package BioAuth.api.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import BioAuth.api.dtos.user.UserCreateDTO;
+import BioAuth.api.dtos.user.UserFindByEmailAndPasswordDTO;
 import BioAuth.api.dtos.user.UserListResponseDTO;
 import BioAuth.api.dtos.user.UserResponseDTO;
 import BioAuth.api.dtos.user.UserUpdateDTO;
@@ -22,7 +24,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-@Validated
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("api/users")
 public class UserController {
@@ -42,6 +44,11 @@ public class UserController {
 	@GetMapping("/{id}")
 	public UserResponseDTO findById(@PathVariable @NotNull @Positive Long id) {
 		return userService.findById(id);
+	}
+
+	@PostMapping("/me")
+	public UserResponseDTO findByEmailAndPassword(@Valid @NotNull @RequestBody UserFindByEmailAndPasswordDTO userDTO) {
+		return userService.findByEmailAndPassword(userDTO);
 	}
 
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

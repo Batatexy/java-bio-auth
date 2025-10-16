@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record RuralPropertiesUpdateDTO(
 	@NotBlank String placeName,
+	@NotBlank String description,
 	@NotBlank String ownerName,
 	@NotBlank String address,
 	@NotNull float size,

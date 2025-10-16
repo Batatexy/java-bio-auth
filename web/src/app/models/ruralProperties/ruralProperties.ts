@@ -1,6 +1,7 @@
 export interface RuralProperties {
   id: string;
   placeName: string;
+  description: string;
   ownerName: string;
   address: string;
   size: number;

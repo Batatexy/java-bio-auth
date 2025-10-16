@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import BioAuth.api.dtos.role.RoleCreateDTO;
 import BioAuth.api.dtos.role.RoleListResponseDTO;
@@ -17,7 +16,6 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
-@Validated
 @Service
 public class RoleService {
 
