@@ -1,0 +1,3 @@
+User Nível 1 = Vê fazendas Nível 1 e 2 / Não vê agrotoxicos
+User Nível 2 = Vê fazendas Nível 1 e 2 / Vê agrotóxicos Nível 1 e 2
+User Nível 3 = Vê Tudo

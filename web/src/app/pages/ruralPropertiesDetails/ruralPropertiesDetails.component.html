@@ -1,0 +1,30 @@
+
+<!-- <img [src]="'data:image/png;base64,' + ruralProperties?.image " class="blur-lg h-[100vh] w-full absolute top-0 left-0 object-cover z-0 opacity-20" /> -->
+
+
+<div class="z-5 h-[100vh] pt-6 flex justify-center bg-center bg-no-repeat bg-top-left bg-cover bg-opacity-10 [--bg-opacity:20%]"
+[ngStyle]="{ 'background-image': 'url(data:image/png;base64,' + ruralProperties?.image + ')' }">
+  <div clas="w-10 z-5">
+      <div class="grid grid-cols-2 gap-12 z-5">
+        <div class="flex justify-end z-5 ">
+          <img [src]="'data:image/png;base64,' + ruralProperties?.image" class="rounded-xl object-cover w-140 z-5 ">
+        </div>
+
+      <div class="z-5 ">
+        <h2 class="text-4xl font-bold z-5">{{ruralProperties?.placeName}}</h2>
+        <p class="text-xl z-5">Endereço: {{ruralProperties?.address}}</p>
+        <p class="text-xl z-5">Proprietário: {{ruralProperties?.ownerName}}</p>
+        <p class="text-xl z-5">Tamanho: {{ruralProperties?.size}} m²</p>
+
+        <!-- @if(getUser().role){} -->
+        <p class="text-xl z-5">Agotoxico: {{ruralProperties?.agroChemicals}}</p>
+      </div>
+    </div>
+
+    <div class="flex justify-center pt-4 z-5">
+      <p class="text-xl text-left w-full z-5">
+        {{ruralProperties?.description}}
+      </p>
+    </div>
+  </div>
+</div>

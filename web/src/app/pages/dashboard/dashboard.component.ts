@@ -14,7 +14,6 @@ export class DashboardComponent implements OnInit {
   private ruralPropertiesService = inject(RuralPropertiesService);
   private cd = inject(ChangeDetectorRef);
   ruralPropertiesList?: RuralPropertiesList;
-
   private router = inject(Router);
 
   ngOnInit() {

@@ -1,3 +1,14 @@
-.text-active-route{
-    color: white;
+.custom-side-nav{
+  background-color: var(--primary-blue-6);
+  border-right: 2px solid var(--primary-blue-5);;
+}
+
+a, button{
+  color: var(--gray-1);
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.active-route, a:hover, button:hover{
+  background-color: var(--primary-blue-5);
+  color: white;
 }

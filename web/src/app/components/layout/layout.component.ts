@@ -21,4 +21,8 @@ export class LayoutComponent {
     this.router.navigate(['/login']);
   }
 
+  getUser(): User | undefined {
+    return this.userService.getUser();
+  }
+
 }

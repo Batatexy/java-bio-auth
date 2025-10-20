@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, take } from 'rxjs';
 import { RuralPropertiesList } from '../models/ruralProperties/ruralPropertiesList';
+import { RuralProperties } from '../models/ruralProperties/ruralProperties';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,10 @@ export class RuralPropertiesService {
 
   list(): Observable<RuralPropertiesList> {
     return this.httpClient.get<RuralPropertiesList>(`${this.API_URL}`).pipe(take(1));
+  }
+
+  findById(id: string): Observable<RuralProperties> {
+    return this.httpClient.get<RuralProperties>(`${this.API_URL}/${id}`).pipe(take(1));
   }
 
   // create(assessment: AssessmentCreate) {

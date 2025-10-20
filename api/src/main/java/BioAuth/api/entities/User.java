@@ -46,6 +46,8 @@ public class User {
 	@Basic(fetch = FetchType.LAZY)
     private byte[] image;
 
+	@Basic(fetch = FetchType.LAZY)
+	private List<byte[]> digitalImages = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserRole> userRoles = new ArrayList<>();
@@ -67,6 +69,9 @@ public class User {
 
     public List<UserRole> getUserRoles() { return userRoles; }
     public void setUserRoles(List<UserRole> userRoles) { this.userRoles = userRoles; }
+    
+    public List<byte[]> getDigitalImagesRoles() { return digitalImages; }
+    public void setDigitalImagesRoles(List<byte[]> digitalImages) { this.digitalImages = digitalImages; }
 
 	@Override
 	public String toString() {

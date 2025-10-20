@@ -1,7 +1,24 @@
 @use "tailwindcss";
 
 :root {
-    --primary-color: #1E2939;
+    --gray-1: #6A7282;
 
-    
+    --primary-blue-1: #3EAFF2;
+    --primary-blue-2: #0F70AB;
+    --primary-blue-3: #2B7AA7;
+    --primary-blue-4: #0A4F78;
+    --primary-blue-4-opacity-06: rgba(10, 80, 120, 0.6);
+    --primary-blue-5: #083b59;
+    --primary-blue-6: #052538;
+    --primary-blue-6-2: rgba(5, 37, 56, 0.476);
+
+    --primary-green-1: #55F23E;
+    --primary-green-2: #22AB0F;
+    --primary-green-3: #3CA72B;
+    --primary-green-4: #18780A;
+
+    --primary-brown-1: #F27B3D;
+    --primary-brown-2: #A9470E;
+    --primary-brown-3: #A8552B;
+    --primary-brown-4: #76320A;
 }

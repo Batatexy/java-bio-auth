@@ -19,22 +19,25 @@ export class App {
     this.userService.tryLogin.email = localStorage.getItem('email') || '';
     this.userService.tryLogin.password = localStorage.getItem('password') || '';
 
-
-    this.userService.me().subscribe({
-      next: (user) => {
-        this.userService.user = user;
-      },
-      complete: () => {
-        if (!this.userService.user) {
-          this.router.navigate(['/login']);
+    if (this.userService.tryLogin.email && this.userService.tryLogin.password) {
+      this.userService.me().subscribe({
+        next: (user) => {
+          this.userService.setUser(user);
+        },
+        complete: () => {
+          if (!this.userService.getUser()) {
+            this.router.navigate(['/login']);
+          }
         }
-      }
-    });
+      });
+    }
+
+
 
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
-        if (!this.userService.user) {
+        if (!this.userService.getUser()) {
           this.router.navigate(['/login']);
         }
       });

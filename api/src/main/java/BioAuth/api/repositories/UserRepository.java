@@ -13,10 +13,17 @@ import BioAuth.api.entities.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 	@Query(value = """
-			 SELECT *
+			SELECT *
 			FROM users
 			WHERE email = :email
 			AND password = :password
 			""", nativeQuery = true)
 	Optional<User> findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
+
+	@Query(value = """
+			SELECT *
+			FROM users
+			WHERE email = :email
+			""", nativeQuery = true)
+	Optional<User> findByEmail(@Param("email") String email);
 }

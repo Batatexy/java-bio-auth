@@ -1,5 +1,7 @@
 package BioAuth.api.controllers;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import BioAuth.api.dtos.user.UserCreateDTO;
 import BioAuth.api.dtos.user.UserFindByEmailAndPasswordDTO;
+import BioAuth.api.dtos.user.UserFindByEmailDTO;
 import BioAuth.api.dtos.user.UserListResponseDTO;
 import BioAuth.api.dtos.user.UserResponseDTO;
 import BioAuth.api.dtos.user.UserUpdateDTO;
@@ -24,7 +27,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/users")
 public class UserController {
@@ -46,6 +49,11 @@ public class UserController {
 		return userService.findById(id);
 	}
 
+	@PostMapping("/find-by-email")
+	public UserResponseDTO findByEmail(@Valid @NotNull @RequestBody UserFindByEmailDTO userDTO) {
+		return userService.findByEmail(userDTO);
+	}
+
 	@PostMapping("/me")
 	public UserResponseDTO findByEmailAndPassword(@Valid @NotNull @RequestBody UserFindByEmailAndPasswordDTO userDTO) {
 		return userService.findByEmailAndPassword(userDTO);
@@ -54,8 +62,9 @@ public class UserController {
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public UserResponseDTO create(@RequestPart("data") @Valid UserCreateDTO userCreateDTO,
-			@RequestPart(value = "image", required = false) MultipartFile image) {
-		return userService.create(userCreateDTO, image);
+			@RequestPart(value = "image", required = false) MultipartFile userImage,
+			@RequestPart(value = "digitalImage", required = false) List<MultipartFile> digitalImages) {
+		return userService.create(userCreateDTO, userImage);
 	}
 
 	@PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

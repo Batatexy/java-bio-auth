@@ -9,11 +9,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import BioAuth.api.dtos.user.UserCreateDTO;
 import BioAuth.api.dtos.user.UserFindByEmailAndPasswordDTO;
+import BioAuth.api.dtos.user.UserFindByEmailDTO;
 import BioAuth.api.dtos.user.UserListResponseDTO;
 import BioAuth.api.dtos.user.UserResponseDTO;
 import BioAuth.api.dtos.user.UserUpdateDTO;
 import BioAuth.api.entities.User;
 import BioAuth.api.exceptions.UserImageProcessingException;
+import BioAuth.api.exceptions.UserNotFoundException;
 import BioAuth.api.mappers.UserMapper;
 import BioAuth.api.repositories.UserRepository;
 import jakarta.transaction.Transactional;
@@ -42,7 +44,13 @@ public class UserService {
 	}
 
 	public UserResponseDTO findByEmailAndPassword(@Valid UserFindByEmailAndPasswordDTO userDTO) {
-		return userMapper.toDTO(userRepository.findByEmailAndPassword(userDTO.email(), userDTO.password()).get());
+		return userMapper.toDTO(userRepository.findByEmailAndPassword(userDTO.email(), userDTO.password())
+				.orElseThrow(UserNotFoundException::new));
+	}
+
+	public UserResponseDTO findByEmail(@Valid UserFindByEmailDTO userDTO) {
+		return userMapper.toDTO(userRepository.findByEmail(userDTO.email())
+				.orElseThrow(UserNotFoundException::new));
 	}
 
 	public Optional<User> findUserById(@NotNull Long id) {
