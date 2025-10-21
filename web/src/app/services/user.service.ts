@@ -17,6 +17,9 @@ export class UserService {
   private user?: User;
   tryLogin: UserFindByEmailAndPasswordDTO = { email: '', password: '' };
 
+  userImageFile: File | null = null;
+  userFingerPrintFiles: File[] = [];
+
   list(): Observable<UserList> {
     return this.httpClient.get<UserList>(`${this.API_URL}`).pipe(take(1));
   }

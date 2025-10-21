@@ -2,5 +2,6 @@ export interface User {
   id: string;
   fullName: string;
   email: string;
-  image?: string | null;
+  userImage?: string | null;
+  digitalImages?: string[] | null;
 }

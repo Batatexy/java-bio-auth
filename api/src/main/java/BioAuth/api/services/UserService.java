@@ -1,6 +1,8 @@
 package BioAuth.api.services;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,11 +60,21 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserResponseDTO create(@Valid UserCreateDTO userCreateDTO, MultipartFile image) {
-		byte[] imageBytes = null;
-		if (image != null) { imageBytes = extractImageBytes(image); }
+	public UserResponseDTO create(@Valid UserCreateDTO userCreateDTO, MultipartFile userImage,
+			List<MultipartFile> digitalImages) {
+		byte[] userImageBytes = null;
+		if (userImage != null) {
+			userImageBytes = extractImageBytes(userImage);
+		}
+		
+		List<byte[]> digitalImageBytes = null;
+		if (digitalImages != null) {
+			digitalImageBytes = extractImagesBytes(digitalImages);
+		}
+		
 		var password = userCreateDTO.password();
-		return userMapper.toDTO(userRepository.save(userMapper.toEntity(userCreateDTO, imageBytes, password)));
+		return userMapper.toDTO(userRepository.save(userMapper.toEntity(
+				userCreateDTO, userImageBytes, digitalImageBytes, password)));
 	}
 	
 	@Transactional
@@ -77,6 +89,23 @@ public class UserService {
 
 		return userMapper.toDTO(userRepository.save(user));
 	}
+
+	private List<byte[]> extractImagesBytes(List<MultipartFile> images) {
+		if (images == null || images.isEmpty()) {
+			return Collections.emptyList();
+		}
+
+		List<byte[]> bytesList = new ArrayList<>();
+		for (MultipartFile image : images) {
+			try {
+				bytesList.add(image.getBytes());
+			} catch (IOException e) {
+				throw new UserImageProcessingException();
+			}
+		}
+		return bytesList;
+	}
+
 
 	private byte[] extractImageBytes(MultipartFile image) {
 		try {

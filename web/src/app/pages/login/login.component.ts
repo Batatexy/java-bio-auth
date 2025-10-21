@@ -32,67 +32,64 @@ export class LoginComponent implements OnInit {
   screen: number = 0;
 
   previewUserUrl: string = '/no-profile-image.png';
-  previewDigitallUrl: string[] = ['/finger-print-image.png'];
+  previewDigitalUrl: string[] = ['/finger-print-image.png'];
   errorMessage = '';
   acceptedFormats = ['image/jpeg', 'image/png', 'image/webp'];
   maxSizeMB = 2;
 
+  userImageFile: File | null = null;
+  userFingerPrintFiles: File[] = [];
+
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: [''],
-      name: [''],
-      userPassword: [''],
+      email: ['', Validators.required],
+      name: ['', Validators.required],
+      userPassword: ['', Validators.required],
       userImage: [''],
-      userFingerPrints: [['']]
+      userFingerPrints: [[]]
     });
   }
 
   onRegister() {
-    if (this.loginForm.value.email && this.loginForm.value.userPassword && this.loginForm.value.name) {
-      this.userService.findByEmail({ email: this.loginForm.value.email }).subscribe({
-        next: (user) => {
-          if (user) {
-            //adicionar toast
-            alert('Email já cadastrado.');
-            return;
-          }
-        },
-        error: () => {
-          let register: UserCreate = {
-            fullName: this.loginForm.value.name,
-            email: this.loginForm.value.email,
-            password: this.loginForm.value.userPassword
-          };
-
-          if (this.loginForm.value.userImage == '/no-profile-image.png') {
-            this.loginForm.value.userImage = null;
-          }
-
-          if (JSON.stringify(this.loginForm.value.userFingerPrints) == JSON.stringify(['/finger-print-image.png'])) {
-            this.loginForm.value.userFingerPrints = null;
-          }
-
-
-
-          this.userService.register(register, this.loginForm.get('userImage')?.value, this.loginForm.get('userFingerPrints')?.value).subscribe({
-            next: (user) => {
-              console.log(user);
-              this.userService.setUser(user);
-            },
-            complete: () => {
-              if (!this.userService.getUser) {
-                alert('Login failed');
-                return;
-              } else {
-                localStorage.setItem('email', this.loginForm.value.email);
-                localStorage.setItem('password', this.loginForm.value.userPassword);
-                this.router.navigate(['/dashboard']);
-              }
-            }
-          });
-        }
-      });
+    if (this.loginForm.invalid) {
+      this.errorMessage = 'Preencha todos os campos obrigatórios.';
+      return;
     }
+
+    const { email, name, userPassword } = this.loginForm.value;
+
+    this.userService.findByEmail({ email }).subscribe({
+      next: (user) => {
+        if (user) {
+          alert('Email já cadastrado.');
+          return;
+        }
+      },
+      error: () => {
+        const register: UserCreate = {
+          fullName: name,
+          email,
+          password: userPassword
+        };
+
+        this.userService.register(register, this.userImageFile, this.userFingerPrintFiles).subscribe({
+          next: (user) => {
+            console.log('Usuário registrado:', user);
+            this.userService.setUser(user);
+          },
+          complete: () => {
+            const savedUser = this.userService.getUser;
+            if (!savedUser) {
+              alert('Falha no login.');
+              return;
+            }
+            localStorage.setItem('email', email);
+            localStorage.setItem('password', userPassword);
+            this.router.navigate(['/dashboard']);
+          }
+        });
+      }
+    });
   }
 
   onLogin() {
@@ -107,7 +104,8 @@ export class LoginComponent implements OnInit {
           this.userService.setUser(user);
         },
         complete: () => {
-          if (!this.userService.getUser) {
+          const savedUser = this.userService.getUser;
+          if (!savedUser) {
             alert('Login failed');
             return;
           } else {
@@ -143,7 +141,7 @@ export class LoginComponent implements OnInit {
     const reader = new FileReader();
     reader.onload = () => {
       this.previewUserUrl = reader.result as string;
-      this.onChange([file]); // envia como array para manter o padrão
+      this.userImageFile = file;
     };
     reader.readAsDataURL(file);
   }
@@ -176,12 +174,12 @@ export class LoginComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         previews.push(reader.result as string);
-
-        this.previewDigitallUrl = [...previews];
-        this.onChange(validFiles.length ? validFiles : null);
+        this.previewDigitalUrl = [...previews];
       };
       reader.readAsDataURL(file);
     }
+
+    this.userFingerPrintFiles = validFiles;
   }
 
   private onChange = (files: File[] | null) => { };
@@ -197,5 +195,4 @@ export class LoginComponent implements OnInit {
   triggerTouched() {
     this.onTouched();
   }
-
 }

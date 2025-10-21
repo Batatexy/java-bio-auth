@@ -24,11 +24,14 @@ public class User {
 	private Long id;
 
 	public User() {}
-	public User(@NotBlank String fullName, @NotBlank String email, @NotBlank String password, byte[] image) {
+
+	public User(@NotBlank String fullName, @NotBlank String email, @NotBlank String password, byte[] userImage,
+			List<byte[]> digitalImages) {
 		this.fullName = fullName;
 		this.email = email;
 		this.password = password;
-		this.image = image;
+		this.image = userImage;
+		this.digitalImages = digitalImages;
 	}
 
 	@NotBlank

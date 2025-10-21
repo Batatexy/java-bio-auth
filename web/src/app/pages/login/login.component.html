@@ -1,5 +1,3 @@
-<!-- Deu um erro de selecionar uma imagem, trocar para login e voltar para registro -->
-
 
 <app-loading />
 
@@ -26,8 +24,9 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
             </svg>
-            <input type="file" accept="image/png, image/jpeg, image/webp" (change)="onFileUserChange($event); triggerTouched()"
-            #fileUserInput hidden formControlName="userImage"/>
+            <input type="file" accept="image/png, image/jpeg, image/webp"
+            (change)="onFileUserChange($event); triggerTouched()"
+            #fileUserInput hidden />
           </div>
 
           <div (click)="fileDigitalInput.click()" class="custom-change-image-upload cursor-pointer size-48 relative top-48 flex justify-center items-center rounded-full">
@@ -35,8 +34,9 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
             </svg>
-            <input type="file" accept="image/png, image/jpeg, image/webp" (change)="onFileDigitalChange($event); triggerTouched()"
-            #fileDigitalInput hidden multiple formControlName="userFingerPrints"/>
+            <input type="file" accept="image/png, image/jpeg, image/webp"
+            (change)="onFileDigitalChange($event); triggerTouched()"
+            #fileDigitalInput hidden multiple />
           </div>
         </div>
 
@@ -46,7 +46,7 @@
           </div>
 
           <div class="size-48">
-            <img class="rounded-full size-full" [src]="previewDigitallUrl[previewDigitallUrl.length - 1]">
+            <img class="rounded-full size-full" [src]="previewDigitalUrl[previewDigitalUrl.length - 1]">
           </div>
         </div>
       </div>

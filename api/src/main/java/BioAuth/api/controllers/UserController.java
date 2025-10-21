@@ -62,9 +62,9 @@ public class UserController {
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public UserResponseDTO create(@RequestPart("data") @Valid UserCreateDTO userCreateDTO,
-			@RequestPart(value = "image", required = false) MultipartFile userImage,
-			@RequestPart(value = "digitalImage", required = false) List<MultipartFile> digitalImages) {
-		return userService.create(userCreateDTO, userImage);
+			@RequestPart(value = "userImage", required = false) MultipartFile userImage,
+			@RequestPart(value = "digitalImages", required = false) List<MultipartFile> digitalImages) {
+		return userService.create(userCreateDTO, userImage, digitalImages);
 	}
 
 	@PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
