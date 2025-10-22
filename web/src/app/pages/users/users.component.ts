@@ -29,6 +29,6 @@ export class UsersComponent implements OnInit {
   }
 
   onView(ruralPropertiesId: string) {
-    this.router.navigate(['/rural-properties', ruralPropertiesId]);
+    this.router.navigate(['/user-details', ruralPropertiesId]);
   }
 }

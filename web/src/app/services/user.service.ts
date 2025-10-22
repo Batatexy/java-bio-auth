@@ -32,6 +32,10 @@ export class UserService {
     return this.httpClient.post<User>(`${this.API_URL}/find-by-email`, user).pipe(take(1));
   }
 
+  findById(id: string): Observable<User> {
+    return this.httpClient.get<User>(`${this.API_URL}/${id}`).pipe(take(1));
+  }
+
   register(registerUser: UserCreate, userImage: File | null, digitalImages: File[] | null) {
     console.log(userImage);
 

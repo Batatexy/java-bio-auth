@@ -1,20 +1,17 @@
-<div class="relative h-[100vh] pt-6 flex justify-center overflow-hidden">
-  <!-- Fundo com blur e zoom -->
+<div class="relative h-[100vh] flex justify-center overflow-hidden">
   <div
     class="absolute inset-0 bg-center bg-cover filter blur-md scale-110 transform"
     [ngStyle]="{ 'background-image': 'url(data:image/png;base64,' + ruralProperties?.image + ')' }"
   ></div>
 
-  <!-- Overlay escuro -->
   <div class="absolute inset-0 bg-black/40"></div>
 
-  <!-- Conteúdo -->
-  <div class="relative z-10 w-10/12 text-white">
+  <div class="rural-details relative z-10 text-white p-10">
     <div class="grid grid-cols-2 gap-12">
       <div class="flex justify-end">
         <img
           [src]="'data:image/png;base64,' + ruralProperties?.image"
-          class="rounded-xl object-cover w-140"
+          class="rounded-xl object-cover"
         />
       </div>
 

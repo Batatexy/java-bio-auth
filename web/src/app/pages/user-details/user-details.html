@@ -1,0 +1,18 @@
+<div class="px-50 pt-6">
+  <div class="flex justify-between gap-12">
+    <img [src]="'data:image/png;base64,' + userDetails?.userImage" class="rounded-full object-cover size-64" />
+    <div class="pt-4">
+      <h2 class="text-4xl font-bold">{{ userDetails?.fullName }}</h2>
+      <p class="text-xl">Email: {{ userDetails?.email }}</p>
+    </div>
+  </div>
+
+  <div class="pt-6">
+    <img [src]="'data:image/png;base64,' + userDetails?.userImage" class="rounded-full object-cover size-64" />
+
+      @for (digitalImage of userDetails?.digitalImages; track $index) {
+
+      }
+  </div>
+
+</div>
