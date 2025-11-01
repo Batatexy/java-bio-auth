@@ -24,14 +24,19 @@ public class User {
 	private Long id;
 
 	public User() {}
-
-	public User(@NotBlank String fullName, @NotBlank String email, @NotBlank String password, byte[] userImage,
-			List<byte[]> digitalImages) {
+	public User(@NotBlank String fullName, @NotBlank String email, @NotBlank String password, byte[] image,
+			byte[] digitalImage1, byte[] digitalImage2, byte[] digitalImage3, byte[] digitalImage4,
+			byte[] digitalImage5, byte[] digitalImage6) {
 		this.fullName = fullName;
 		this.email = email;
 		this.password = password;
-		this.image = userImage;
-		this.digitalImages = digitalImages;
+		this.image = image;
+		this.digitalImage1 = digitalImage1;
+		this.digitalImage2 = digitalImage2;
+		this.digitalImage3 = digitalImage3;
+		this.digitalImage4 = digitalImage4;
+		this.digitalImage5 = digitalImage5;
+		this.digitalImage6 = digitalImage6;
 	}
 
 	@NotBlank
@@ -50,8 +55,23 @@ public class User {
     private byte[] image;
 
 	@Basic(fetch = FetchType.LAZY)
-	private List<byte[]> digitalImages = new ArrayList<>();
-
+    private byte[] digitalImage1;
+	
+	@Basic(fetch = FetchType.LAZY)
+    private byte[] digitalImage2;
+	
+	@Basic(fetch = FetchType.LAZY)
+    private byte[] digitalImage3;
+	
+	@Basic(fetch = FetchType.LAZY)
+    private byte[] digitalImage4;
+	
+	@Basic(fetch = FetchType.LAZY)
+    private byte[] digitalImage5;
+	
+	@Basic(fetch = FetchType.LAZY)
+    private byte[] digitalImage6;
+	
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserRole> userRoles = new ArrayList<>();
 
@@ -73,8 +93,23 @@ public class User {
     public List<UserRole> getUserRoles() { return userRoles; }
     public void setUserRoles(List<UserRole> userRoles) { this.userRoles = userRoles; }
     
-    public List<byte[]> getDigitalImagesRoles() { return digitalImages; }
-    public void setDigitalImagesRoles(List<byte[]> digitalImages) { this.digitalImages = digitalImages; }
+	public byte[] getDigitalImage1() { return digitalImage1; }
+	public void setDigitalImage1(byte[] digitalImage1) { this.digitalImage1 = digitalImage1; }
+
+	public byte[] getDigitalImage2() { return digitalImage2; }
+	public void setDigitalImage2(byte[] digitalImage2) { this.digitalImage2 = digitalImage2; }
+
+	public byte[] getDigitalImage3() { return digitalImage3; }
+	public void setDigitalImage3(byte[] digitalImage3) { this.digitalImage3 = digitalImage3; }
+
+	public byte[] getDigitalImage4() { return digitalImage4; }
+	public void setDigitalImage4(byte[] digitalImage4) { this.digitalImage4 = digitalImage4; }
+
+	public byte[] getDigitalImage5() { return digitalImage5; }
+	public void setDigitalImage5(byte[] digitalImage5) { this.digitalImage5 = digitalImage5; }
+
+	public byte[] getDigitalImage6() { return digitalImage6; }
+	public void setDigitalImage6(byte[] digitalImage6) { this.digitalImage6 = digitalImage6; }
 
 	@Override
 	public String toString() {

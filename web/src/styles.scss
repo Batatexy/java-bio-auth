@@ -21,4 +21,20 @@
     --primary-brown-2: #A9470E;
     --primary-brown-3: #A8552B;
     --primary-brown-4: #76320A;
+
+    .bg-blue-color-4{
+        background-color: var(--primary-blue-4);
+    }
+
+    .bg-blue-color-5{
+        background-color: var(--primary-blue-5);
+    }
+
+    .hover-bg-blue-color-4:hover{
+        background-color: var(--primary-blue-4);
+    }
+
+    .hover-bg-blue-color-5:hover{
+        background-color: var(--primary-blue-5);
+    }
 }

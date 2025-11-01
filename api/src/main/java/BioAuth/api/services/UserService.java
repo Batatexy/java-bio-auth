@@ -1,8 +1,6 @@
 package BioAuth.api.services;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,51 +59,102 @@ public class UserService {
 
 	@Transactional
 	public UserResponseDTO create(@Valid UserCreateDTO userCreateDTO, MultipartFile userImage,
-			List<MultipartFile> digitalImages) {
+			MultipartFile digitalImage1, MultipartFile digitalImage2, MultipartFile digitalImage3,
+			MultipartFile digitalImage4, MultipartFile digitalImage5, MultipartFile digitalImage6) {
+
 		byte[] userImageBytes = null;
 		if (userImage != null) {
 			userImageBytes = extractImageBytes(userImage);
 		}
 		
-		List<byte[]> digitalImageBytes = null;
-		if (digitalImages != null) {
-			digitalImageBytes = extractImagesBytes(digitalImages);
+		byte[] digitalImage1Bytes = null;
+		if (digitalImage1 != null) {
+			digitalImage1Bytes = extractImageBytes(digitalImage1);
+		}
+
+		byte[] digitalImage2Bytes = null;
+		if (digitalImage2 != null) {
+			digitalImage2Bytes = extractImageBytes(digitalImage2);
+		}
+
+		byte[] digitalImage3Bytes = null;
+		if (digitalImage3 != null) {
+			digitalImage3Bytes = extractImageBytes(digitalImage3);
+		}
+
+		byte[] digitalImage4Bytes = null;
+		if (digitalImage4 != null) {
+			digitalImage4Bytes = extractImageBytes(digitalImage4);
+		}
+
+		byte[] digitalImage5Bytes = null;
+		if (digitalImage5 != null) {
+			digitalImage5Bytes = extractImageBytes(digitalImage5);
+		}
+
+		byte[] digitalImage6Bytes = null;
+		if (digitalImage6 != null) {
+			digitalImage6Bytes = extractImageBytes(digitalImage6);
 		}
 		
 		var password = userCreateDTO.password();
 		return userMapper.toDTO(userRepository.save(userMapper.toEntity(
-				userCreateDTO, userImageBytes, digitalImageBytes, password)));
+				userCreateDTO, userImageBytes, password, digitalImage1Bytes, digitalImage2Bytes, digitalImage3Bytes,
+				digitalImage4Bytes, digitalImage5Bytes, digitalImage6Bytes)));
 	}
 	
 	@Transactional
-	public UserResponseDTO update(@NotNull Long id, @Valid UserUpdateDTO userUpdateDTO, MultipartFile image) {
+	public UserResponseDTO update(@NotNull Long id, @Valid UserUpdateDTO userUpdateDTO, MultipartFile userImage,
+			MultipartFile digitalImage1, MultipartFile digitalImage2, MultipartFile digitalImage3,
+			MultipartFile digitalImage4, MultipartFile digitalImage5, MultipartFile digitalImage6) {
 		User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("UserRole não encontrado"));
 
-		byte[] imageBytes = null;
-		if (image != null) { imageBytes = extractImageBytes(image); }
+		byte[] userImageBytes = null;
+		if (userImage != null) {
+			userImageBytes = extractImageBytes(userImage);
+		}
+
+		byte[] digitalImage1Bytes = null;
+		if (digitalImage1 != null) {
+			digitalImage1Bytes = extractImageBytes(digitalImage1);
+		}
+
+		byte[] digitalImage2Bytes = null;
+		if (digitalImage2 != null) {
+			digitalImage2Bytes = extractImageBytes(digitalImage2);
+		}
+
+		byte[] digitalImage3Bytes = null;
+		if (digitalImage3 != null) {
+			digitalImage3Bytes = extractImageBytes(digitalImage3);
+		}
+
+		byte[] digitalImage4Bytes = null;
+		if (digitalImage4 != null) {
+			digitalImage4Bytes = extractImageBytes(digitalImage4);
+		}
+
+		byte[] digitalImage5Bytes = null;
+		if (digitalImage5 != null) {
+			digitalImage5Bytes = extractImageBytes(digitalImage5);
+		}
+
+		byte[] digitalImage6Bytes = null;
+		if (digitalImage6 != null) {
+			digitalImage6Bytes = extractImageBytes(digitalImage6);
+		}
 
 		user.setFullName(userUpdateDTO.fullName());
-		user.setImage(imageBytes);
+		user.setImage(userImageBytes);
+		user.setDigitalImage1(digitalImage1Bytes);
+		user.setDigitalImage2(digitalImage2Bytes);
+		user.setDigitalImage3(digitalImage3Bytes);
+		user.setDigitalImage4(digitalImage4Bytes);
+		user.setDigitalImage5(digitalImage5Bytes);
+		user.setDigitalImage6(digitalImage6Bytes);
 
 		return userMapper.toDTO(userRepository.save(user));
 	}
-
-	private List<byte[]> extractImagesBytes(List<MultipartFile> images) {
-		if (images == null || images.isEmpty()) {
-			return Collections.emptyList();
-		}
-
-		List<byte[]> bytesList = new ArrayList<>();
-		for (MultipartFile image : images) {
-			try {
-				bytesList.add(image.getBytes());
-			} catch (IOException e) {
-				throw new UserImageProcessingException();
-			}
-		}
-		return bytesList;
-	}
-
 
 	private byte[] extractImageBytes(MultipartFile image) {
 		try {

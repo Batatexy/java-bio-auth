@@ -1,6 +1,7 @@
-<div class="px-50 pt-6">
-  <div class="flex justify-between gap-12">
-    <img [src]="'data:image/png;base64,' + userDetails?.userImage" class="rounded-full object-cover size-64" />
+<div class="p-6">
+  <div class="flex justify-center gap-12">
+    <img [src]="userDetails?.userImage ? 'data:image/png;base64,' + userDetails?.userImage : '/no-profile-image.png'"
+     class="rounded-full object-cover size-64" />
     <div class="pt-4">
       <h2 class="text-4xl font-bold">{{ userDetails?.fullName }}</h2>
       <p class="text-xl">Email: {{ userDetails?.email }}</p>
@@ -8,11 +9,55 @@
   </div>
 
   <div class="pt-6">
-    <img [src]="'data:image/png;base64,' + userDetails?.userImage" class="rounded-full object-cover size-64" />
 
-      @for (digitalImage of userDetails?.digitalImages; track $index) {
 
+
+      @if (this.userDetails && ( this.userDetails.digitalImages?.length == 0 || !this.userDetails.digitalImages)) {
+        <p class="text-center text-gray-500">Nenhuma imagem de digital disponível.</p>
       }
-  </div>
+      @else {
+        <section>
+          <div class="container">
+            <div class="carousel">
+              <input type="radio" name="slides" checked="checked" id="slide-1">
 
+              @for (digitalImage of userDetails?.digitalImages; track $index) {
+                @if ($index + 1 > 1) {
+                  <input type="radio" name="slides" [id]="'slide-' + ($index + 1)">
+                }
+              }
+
+              <ul class="carousel__slides rounded-xl">
+                @for (digitalImage of userDetails?.digitalImages; track $index) {
+                  @if (digitalImage) {
+                    <li class="carousel__slide">
+                      <figure>
+                          <div>
+                              <img [src]="digitalImage ? 'data:image/png;base64,' + digitalImage : ''">
+                          </div>
+                      </figure>
+                  </li>
+                  }
+                }
+              </ul>
+
+              <ul class="carousel__thumbnails flex justify-center">
+                @for (digitalImage of userDetails?.digitalImages; track $index) {
+                  @if (digitalImage) {
+                    <li class="rounded-lg">
+                      <label [for]="'slide-' + ($index + 1)">
+                        <img [src]="digitalImage ? 'data:image/png;base64,' + digitalImage : ''" class="rounded-lg">
+                      </label>
+                    </li>
+                  }
+                }
+              </ul>
+            </div>
+          </div>
+        </section>
+      }
+
+
+
+  </div>
 </div>

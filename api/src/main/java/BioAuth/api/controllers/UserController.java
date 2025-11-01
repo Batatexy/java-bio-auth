@@ -1,7 +1,5 @@
 package BioAuth.api.controllers;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -63,16 +61,29 @@ public class UserController {
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public UserResponseDTO create(@RequestPart("data") @Valid UserCreateDTO userCreateDTO,
 			@RequestPart(value = "userImage", required = false) MultipartFile userImage,
-			@RequestPart(value = "digitalImages", required = false) List<MultipartFile> digitalImages) {
-		return userService.create(userCreateDTO, userImage, digitalImages);
+			@RequestPart(value = "digitalImage1", required = false) MultipartFile digitalImage1,
+			@RequestPart(value = "digitalImage2", required = false) MultipartFile digitalImage2,
+			@RequestPart(value = "digitalImage3", required = false) MultipartFile digitalImage3,
+			@RequestPart(value = "digitalImage4", required = false) MultipartFile digitalImage4,
+			@RequestPart(value = "digitalImage5", required = false) MultipartFile digitalImage5,
+			@RequestPart(value = "digitalImage6", required = false) MultipartFile digitalImage6) {
+		return userService.create(userCreateDTO, userImage, digitalImage1, digitalImage2, digitalImage3, digitalImage4,
+				digitalImage5, digitalImage6);
 	}
 
 	@PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	public UserResponseDTO update(@PathVariable @NotNull @Positive Long id,
 			@RequestPart("data") @Valid UserUpdateDTO userUpdateDTO,
-			@RequestPart(value = "image", required = false) MultipartFile image) {
-		return userService.update(id, userUpdateDTO, image);
+			@RequestPart(value = "image", required = false) MultipartFile image,
+			@RequestPart(value = "digitalImage1", required = false) MultipartFile digitalImage1,
+			@RequestPart(value = "digitalImage2", required = false) MultipartFile digitalImage2,
+			@RequestPart(value = "digitalImage3", required = false) MultipartFile digitalImage3,
+			@RequestPart(value = "digitalImage4", required = false) MultipartFile digitalImage4,
+			@RequestPart(value = "digitalImage5", required = false) MultipartFile digitalImage5,
+			@RequestPart(value = "digitalImage6", required = false) MultipartFile digitalImage6) {
+		return userService.update(id, userUpdateDTO, image, digitalImage1, digitalImage2, digitalImage3, digitalImage4,
+				digitalImage5, digitalImage6);
 	}
 
 }

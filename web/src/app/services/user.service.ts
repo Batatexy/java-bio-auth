@@ -50,7 +50,7 @@ export class UserService {
 
     if (digitalImages) {
       digitalImages.forEach((file, index) => {
-        formData.append(`digitalImages[${index}]`, file);
+        formData.append(`digitalImage${index + 1}`, file);
       });
     }
 
