@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, take } from 'rxjs';
-import { RuralPropertiesList } from '../models/ruralProperties/ruralPropertiesList';
 import { RuralProperties } from '../models/ruralProperties/ruralProperties';
+import { RuralPropertiesList } from '../models/ruralProperties/ruralPropertiesList';
 
 @Injectable({
   providedIn: 'root'

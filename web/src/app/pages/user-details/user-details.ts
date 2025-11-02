@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
-import { User } from '../../models/user/user';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserRoles } from '../../models/userRole/userRoles';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -17,15 +17,15 @@ export class UserDetails {
 
 
   id: string | null = null;
-  userDetails?: User;
+  userDetails?: UserRoles;
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get("id");
 
     if (this.id) {
       this.userService.findById(this.id).subscribe({
-        next: (userDetails) => {
-          this.userDetails = userDetails;
+        next: (userRoles) => {
+          this.userDetails = userRoles;
         },
         complete: () => {
           this.cd.detectChanges();
@@ -37,7 +37,7 @@ export class UserDetails {
     }
   }
 
-  getUser(): User | undefined {
-    return this.userService.getUser();
+  getUserRoles(): UserRoles | undefined {
+    return this.userService.getUserRoles();
   }
 }

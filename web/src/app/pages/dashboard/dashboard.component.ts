@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { RuralPropertiesList } from '../../models/ruralProperties/ruralPropertiesList';
 import { Router } from '@angular/router';
 import { RuralPropertiesCardComponent } from '../../components/ruralPropertiesCard/ruralPropertiesCard.component';
+import { RuralPropertiesList } from '../../models/ruralProperties/ruralPropertiesList';
 import { RuralPropertiesService } from '../../services/ruralProperties.service';
 
 @Component({

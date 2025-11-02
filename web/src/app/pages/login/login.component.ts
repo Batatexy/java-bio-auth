@@ -1,3 +1,4 @@
+import { UserRolesService } from './../../services/userRoles.service';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import {
@@ -7,10 +8,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { LoadingComponent } from "../../components/loading/loading.component";
 import { UserCreate } from '../../models/user/userCreate';
+import { UserService } from '../../services/user.service';
+import { UserRoles } from '../../models/userRole/userRoles';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +28,7 @@ import { UserCreate } from '../../models/user/userCreate';
 export class LoginComponent implements OnInit {
   private router = inject(Router);
   private userService = inject(UserService);
+  private userRolesService = inject(UserRolesService);
   private formBuilder = inject(FormBuilder);
 
   loginForm!: FormGroup;
@@ -60,34 +63,46 @@ export class LoginComponent implements OnInit {
 
     this.userService.findByEmail({ email }).subscribe({
       next: (user) => {
-        if (user) {
+        if (user == 1) {
           alert('Email já cadastrado.');
           return;
-        }
-      },
-      error: () => {
-        const register: UserCreate = {
-          fullName: name,
-          email,
-          password: userPassword
-        };
+        } else {
+          const register: UserCreate = {
+            fullName: name,
+            email,
+            password: userPassword
+          };
 
-        this.userService.register(register, this.userImageFile, this.userFingerPrintFiles).subscribe({
-          next: (user) => {
-            console.log('Usuário registrado:', user);
-            this.userService.setUser(user);
-          },
-          complete: () => {
-            const savedUser = this.userService.getUser;
-            if (!savedUser) {
-              alert('Falha no login.');
-              return;
+          this.userService.register(register, this.userImageFile, this.userFingerPrintFiles).subscribe({
+            next: (user) => {
+              console.log('Usuário registrado:', user);
+              this.userService.setUser(user);
+            },
+            complete: () => {
+              const user = this.userService.getUserRoles()?.user
+              if (user) {
+                localStorage.setItem('email', email);
+                localStorage.setItem('password', userPassword);
+
+                if (user && user.id) {
+                  this.userRolesService.create({ userId: user.id, roleId: '1' }).subscribe({
+                    next: (role) => {
+
+                    },
+                    complete: () => {
+                      this.onLogin();
+                    }
+                  });
+                }
+
+
+              } else {
+                alert('Falha no login.');
+                return;
+              }
             }
-            localStorage.setItem('email', email);
-            localStorage.setItem('password', userPassword);
-            this.router.navigate(['/dashboard']);
-          }
-        });
+          });
+        }
       }
     });
   }
@@ -100,11 +115,11 @@ export class LoginComponent implements OnInit {
       };
 
       this.userService.me().subscribe({
-        next: (user) => {
-          this.userService.setUser(user);
+        next: (userRoles) => {
+          this.userService.setUserRoles(userRoles);
         },
         complete: () => {
-          const savedUser = this.userService.getUser;
+          const savedUser = this.userService.getUserRoles();
           if (!savedUser) {
             alert('Login failed');
             return;

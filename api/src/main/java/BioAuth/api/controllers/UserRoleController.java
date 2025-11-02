@@ -2,7 +2,6 @@ package BioAuth.api.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,9 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import BioAuth.api.dtos.userrole.UserRoleCreateDTO;
-import BioAuth.api.dtos.userrole.UserRoleListResponseDTO;
 import BioAuth.api.dtos.userrole.UserRoleMicroResponseDTO;
-import BioAuth.api.dtos.userrole.UserRoleResponseDTO;
 import BioAuth.api.dtos.userrole.UserRoleUpdateDTO;
 import BioAuth.api.services.UserRoleService;
 import jakarta.validation.Valid;
@@ -31,21 +28,6 @@ public class UserRoleController {
 	public UserRoleController(UserRoleService userRoleService) {
 		super();
 		this.userRoleService = userRoleService;
-	}
-
-	@GetMapping
-	public UserRoleListResponseDTO list() {
-		return userRoleService.list();
-	}
-
-	@GetMapping("/{id}")
-	public UserRoleResponseDTO findById(@PathVariable @NotNull @Positive Long id) {
-		return userRoleService.findById(id);
-	}
-
-	@GetMapping("/user/{userId}")
-	public UserRoleResponseDTO findByUserId(@PathVariable @NotNull @Positive Long userId) {
-		return userRoleService.findByUserId(userId);
 	}
 
 	@PostMapping

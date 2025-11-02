@@ -1,9 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { LoadingComponent } from "../loading/loading.component";
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { UserRoles } from '../../models/userRole/userRoles';
 import { UserService } from '../../services/user.service';
-import { User } from '../../models/user/user';
-import { filter } from 'rxjs';
+import { LoadingComponent } from "../loading/loading.component";
 
 @Component({
   selector: 'app-layout',
@@ -21,8 +20,8 @@ export class LayoutComponent {
     this.router.navigate(['/login']);
   }
 
-  getUser(): User | undefined {
-    return this.userService.getUser();
+  getUserRoles(): UserRoles | undefined {
+    return this.userService.getUserRoles();
   }
 
 }

@@ -7,11 +7,11 @@
     aria-label="Sidebar"
   >
     <div class="flex justify-left w-full ps-3 pe-3 pt-3 items-center gap-3">
-      <img class="rounded-full size-12 object-cover" [src]="getUser()?.userImage ? 'data:image/png;base64,' + getUser()?.userImage : '/no-profile-image.png'">
+      <img class="rounded-full size-12 object-cover" [src]="getUserRoles()?.user?.userImage ? 'data:image/png;base64,' + getUserRoles()?.user?.userImage : '/no-profile-image.png'">
 
       <div class="w-43">
         <h2 class="text-white text-lg font-semibold">
-          {{ getUser()?.fullName }}
+          {{ getUserRoles()?.user?.fullName }}
         </h2>
       </div>
     </div>

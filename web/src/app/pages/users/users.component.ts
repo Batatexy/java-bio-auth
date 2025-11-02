@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { UserList } from '../../models/user/userList';
 import { Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
 import { UserCardComponent } from "../../components/userCard/userCard.component";
+import { UserList } from '../../models/user/userList';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-users',

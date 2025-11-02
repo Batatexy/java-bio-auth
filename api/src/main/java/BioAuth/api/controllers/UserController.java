@@ -20,6 +20,8 @@ import BioAuth.api.dtos.user.UserFindByEmailDTO;
 import BioAuth.api.dtos.user.UserListResponseDTO;
 import BioAuth.api.dtos.user.UserResponseDTO;
 import BioAuth.api.dtos.user.UserUpdateDTO;
+import BioAuth.api.dtos.userrole.UserRoleResponseDTO;
+import BioAuth.api.services.UserRoleService;
 import BioAuth.api.services.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -31,10 +33,12 @@ import jakarta.validation.constraints.Positive;
 public class UserController {
 
 	private final UserService userService;
+	private final UserRoleService userRoleService;
 
-	public UserController(UserService userService) {
+	public UserController(UserService userService, UserRoleService userRoleService) {
 		super();
 		this.userService = userService;
+		this.userRoleService = userRoleService;
 	}
 
 	@GetMapping
@@ -42,19 +46,24 @@ public class UserController {
 		return userService.list();
 	}
 
-	@GetMapping("/{id}")
-	public UserResponseDTO findById(@PathVariable @NotNull @Positive Long id) {
-		return userService.findById(id);
+	@GetMapping("/{userId}")
+	public UserRoleResponseDTO findById(@PathVariable @NotNull @Positive Long userId) {
+		return userRoleService.findByUserId(userId);
 	}
 
 	@PostMapping("/find-by-email")
-	public UserResponseDTO findByEmail(@Valid @NotNull @RequestBody UserFindByEmailDTO userDTO) {
+	public Long findByEmail(@Valid @NotNull @RequestBody UserFindByEmailDTO userDTO) {
 		return userService.findByEmail(userDTO);
 	}
 
 	@PostMapping("/me")
-	public UserResponseDTO findByEmailAndPassword(@Valid @NotNull @RequestBody UserFindByEmailAndPasswordDTO userDTO) {
-		return userService.findByEmailAndPassword(userDTO);
+	public UserRoleResponseDTO findByEmailAndPassword(@Valid @NotNull @RequestBody UserFindByEmailAndPasswordDTO userDTO) {
+		return userRoleService.findByEmailAndPassword(userDTO);
+	}
+
+	@PostMapping("/find-by-digital")
+	public UserRoleResponseDTO findByDigitalImage(@RequestPart(value = "digitalImage", required = true) MultipartFile digitalImage) {
+		return userRoleService.findByDigitalImage(digitalImage);
 	}
 
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

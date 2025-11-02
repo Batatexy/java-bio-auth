@@ -7,9 +7,9 @@ transition-transform duration-200 hover:scale-102">
       [alt]="user.fullName"
       />
 
-      <div class="flex justify-end h-0 relative bottom-17 right-0.5">
-        <img class="rounded-lg w-12 h-16 object-cover"
-        src="https://www.researchgate.net/publication/373077722/figure/fig15/AS:11431281181039914@1691841971200/Figura-27-Datilograma-com-marcacao-dos-pontos-caracteristicos-com-impressao-questionada.jpg">
+      <div class="flex justify-end h-0 relative bottom-13 right-1">
+        <img class="rounded-lg size-12 object-contain border-2 border-gray-600"
+        [src]="user && user.digitalImages && user.digitalImages[0] ? `data:image/png;base64,${user.digitalImages[0]}` : ''">
       </div>
     </div>
 

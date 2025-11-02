@@ -21,11 +21,11 @@ export class App {
 
     if (this.userService.tryLogin.email && this.userService.tryLogin.password) {
       this.userService.me().subscribe({
-        next: (user) => {
-          this.userService.setUser(user);
+        next: (userRoles) => {
+          this.userService.setUserRoles(userRoles);
         },
         complete: () => {
-          if (!this.userService.getUser()) {
+          if (!this.userService.getUserRoles()) {
             this.router.navigate(['/login']);
           }
         }
@@ -37,7 +37,7 @@ export class App {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
-        if (!this.userService.getUser()) {
+        if (!this.userService.getUserRoles()) {
           this.router.navigate(['/login']);
         }
       });

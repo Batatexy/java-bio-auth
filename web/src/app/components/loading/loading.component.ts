@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { map, Observable, switchMap, timer } from 'rxjs';
-import { LoadingService } from '../../services/loading.service';
 import { AsyncPipe, CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { map, switchMap, timer } from 'rxjs';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-loading',

@@ -1,10 +1,10 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { RuralPropertiesService } from '../../services/ruralProperties.service';
-import { RuralProperties } from '../../models/ruralProperties/ruralProperties';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RuralProperties } from '../../models/ruralProperties/ruralProperties';
+import { UserRoles } from '../../models/userRole/userRoles';
+import { RuralPropertiesService } from '../../services/ruralProperties.service';
 import { UserService } from '../../services/user.service';
-import { User } from '../../models/user/user';
 
 @Component({
   selector: 'app-details',
@@ -40,8 +40,8 @@ export class DetailsComponent implements OnInit {
     }
   }
 
-  getUser(): User | undefined {
-    return this.userService.getUser();
+  getUserRoles(): UserRoles | undefined {
+    return this.userService.getUserRoles();
   }
 
 }

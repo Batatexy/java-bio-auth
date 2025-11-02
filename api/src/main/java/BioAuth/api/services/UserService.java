@@ -2,20 +2,17 @@ package BioAuth.api.services;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import BioAuth.api.dtos.user.UserCreateDTO;
-import BioAuth.api.dtos.user.UserFindByEmailAndPasswordDTO;
 import BioAuth.api.dtos.user.UserFindByEmailDTO;
 import BioAuth.api.dtos.user.UserListResponseDTO;
 import BioAuth.api.dtos.user.UserResponseDTO;
 import BioAuth.api.dtos.user.UserUpdateDTO;
 import BioAuth.api.entities.User;
 import BioAuth.api.exceptions.UserImageProcessingException;
-import BioAuth.api.exceptions.UserNotFoundException;
 import BioAuth.api.mappers.UserMapper;
 import BioAuth.api.repositories.UserRepository;
 import jakarta.transaction.Transactional;
@@ -39,22 +36,8 @@ public class UserService {
 		return new UserListResponseDTO(users);
 	}
 
-	public UserResponseDTO findById(@NotNull Long id) {
-		return userMapper.toDTO(userRepository.findById(id).get());
-	}
-
-	public UserResponseDTO findByEmailAndPassword(@Valid UserFindByEmailAndPasswordDTO userDTO) {
-		return userMapper.toDTO(userRepository.findByEmailAndPassword(userDTO.email(), userDTO.password())
-				.orElseThrow(UserNotFoundException::new));
-	}
-
-	public UserResponseDTO findByEmail(@Valid UserFindByEmailDTO userDTO) {
-		return userMapper.toDTO(userRepository.findByEmail(userDTO.email())
-				.orElseThrow(UserNotFoundException::new));
-	}
-
-	public Optional<User> findUserById(@NotNull Long id) {
-		return userRepository.findById(id);
+	public Long findByEmail(@Valid UserFindByEmailDTO userDTO) {
+		return userRepository.findByEmail(userDTO.email());
 	}
 
 	@Transactional
@@ -66,7 +49,7 @@ public class UserService {
 		if (userImage != null) {
 			userImageBytes = extractImageBytes(userImage);
 		}
-		
+
 		byte[] digitalImage1Bytes = null;
 		if (digitalImage1 != null) {
 			digitalImage1Bytes = extractImageBytes(digitalImage1);
@@ -96,13 +79,13 @@ public class UserService {
 		if (digitalImage6 != null) {
 			digitalImage6Bytes = extractImageBytes(digitalImage6);
 		}
-		
+
 		var password = userCreateDTO.password();
-		return userMapper.toDTO(userRepository.save(userMapper.toEntity(
-				userCreateDTO, userImageBytes, password, digitalImage1Bytes, digitalImage2Bytes, digitalImage3Bytes,
-				digitalImage4Bytes, digitalImage5Bytes, digitalImage6Bytes)));
+		return userMapper.toDTO(userRepository.save(
+				userMapper.toEntity(userCreateDTO, userImageBytes, password, digitalImage1Bytes, digitalImage2Bytes,
+						digitalImage3Bytes, digitalImage4Bytes, digitalImage5Bytes, digitalImage6Bytes)));
 	}
-	
+
 	@Transactional
 	public UserResponseDTO update(@NotNull Long id, @Valid UserUpdateDTO userUpdateDTO, MultipartFile userImage,
 			MultipartFile digitalImage1, MultipartFile digitalImage2, MultipartFile digitalImage3,
