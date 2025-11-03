@@ -4,5 +4,6 @@ import jakarta.validation.constraints.NotNull;
 
 public record UserRoleCreateDTO(
 	@NotNull Long userId,
-	@NotNull Long roleId
+	@NotNull Long roleId,
+	@NotNull boolean create
 ){}

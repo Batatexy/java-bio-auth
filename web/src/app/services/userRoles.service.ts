@@ -11,11 +11,7 @@ export class UserRolesService {
   private httpClient = inject(HttpClient);
   private API_URL = 'http://localhost:8080/api/users-roles';
 
-  create(userRoleCreate: UserRoleCreate): Observable<UserRoleMicro> {
-    console.log('Creating user role with data:');
-
-    console.log(userRoleCreate);
-
+  changeRole(userRoleCreate: UserRoleCreate): Observable<UserRoleMicro> {
     return this.httpClient.post<UserRoleMicro>(`${this.API_URL}`, userRoleCreate).pipe(take(1));
   }
 }

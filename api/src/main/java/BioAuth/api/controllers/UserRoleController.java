@@ -32,7 +32,7 @@ public class UserRoleController {
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public UserRoleMicroResponseDTO create(@Valid @NotNull @RequestBody UserRoleCreateDTO userRoleCreateDTO) {
+	public UserRoleMicroResponseDTO changeRole(@Valid @NotNull @RequestBody UserRoleCreateDTO userRoleCreateDTO) {
 		return userRoleService.create(userRoleCreateDTO);
 	}
 

@@ -14,6 +14,29 @@ import BioAuth.api.entities.UserRole;
 
 @Repository
 public interface UserRoleRepository extends JpaRepository<UserRole, Long>, JpaSpecificationExecutor<UserRole> {
+
+	@Query(value = """
+			SELECT * FROM user_roles
+			WHERE user_id = :userId
+			AND role_id = :roleId;
+			""", nativeQuery = true)
+	UserRole findByUserIdAndRoleId(@Param("userId") Long userId, @Param("roleId") Long roleId);
+
+	@Query(value = """
+			SELECT
+			  CASE
+			    WHEN EXISTS (
+			      SELECT 1
+			      FROM user_roles
+			      WHERE user_id = :userId
+			      AND role_id = :roleId
+			    )
+			    THEN 1
+			    ELSE 0
+			  END AS found;
+			""", nativeQuery = true)
+	Long findByUserIdAndRoleIdLong(@Param("userId") Long userId, @Param("roleId") Long roleId);
+
 	@Query(value = """
 			SELECT
 			    users.user_id AS userId,

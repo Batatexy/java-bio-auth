@@ -14,6 +14,16 @@ export class LayoutComponent {
   private router = inject(Router);
   private userService = inject(UserService);
 
+  levelPermission = false;
+
+  ngOnInit() {
+    this.getUserRoles()?.roles.forEach(role => {
+      if (role.levelOrder == 2 || role.levelOrder == 3) {
+        this.levelPermission = true;
+      }
+    });
+  }
+
   logout() {
     localStorage.removeItem('email');
     localStorage.removeItem('password');

@@ -1,0 +1,80 @@
+<div class="p-6">
+  <div class="flex justify-center gap-12">
+
+    <img [src]="userDetails?.user?.userImage ? `data:image/png;base64,${userDetails?.user?.userImage}` : '/no-profile-image.png'"
+     class="rounded-full object-cover size-64" />
+    <div class="pt-4">
+      <h2 class="text-4xl font-bold">{{ userDetails?.user?.fullName }}</h2>
+      <p class="text-xl">Email: {{ userDetails?.user?.email }}</p>
+
+      @for (role of roles; track $index) {
+        <div class="flex items-center my-4">
+          <input
+          class="custom-input"
+            type="checkbox"
+            [(ngModel)]="selectedRoles[$index]"
+            (change)="changeRoles(role.levelOrder, selectedRoles[$index])"
+            [id]="'level-' + role.levelOrder"
+            [disabled]="role.levelOrder == 1"
+          />
+          <label (change)="changeRoles(role.levelOrder, selectedRoles[$index])" [for]="'level-' + role.levelOrder" class="ms-2">
+            {{ role.name }}
+          </label>
+        </div>
+      }
+
+    </div>
+
+
+  </div>
+
+
+
+  <div class="pt-6">
+      @if (this.userDetails && ( this.userDetails.user.digitalImages?.length == 0 || !this.userDetails.user.digitalImages)) {
+        <p class="text-center text-gray-500">Nenhuma imagem de digital disponível.</p>
+      }
+      @else {
+        <section>
+          <div class="container flex justify-center w-full">
+            <div class="carousel w-full md:w-105">
+              <input type="radio" name="slides" checked="checked" id="slide-1">
+
+              @for (digitalImage of userDetails?.user?.digitalImages; track $index) {
+                @if ($index + 1 > 1) {
+                  <input type="radio" name="slides" [id]="'slide-' + ($index + 1)">
+                }
+              }
+
+              <ul class="carousel__thumbnails flex justify-center">
+                @for (digitalImage of userDetails?.user?.digitalImages; track $index) {
+                  @if (digitalImage) {
+                    <li class="rounded-lg">
+                      <label [for]="'slide-' + ($index + 1)">
+                        <img [src]="digitalImage ? `data:image/png;base64,${digitalImage}` : ''" class="rounded-lg">
+                      </label>
+                    </li>
+                  }
+                }
+              </ul>
+
+              <ul class="carousel__slides rounded-xl">
+                @for (digitalImage of userDetails?.user?.digitalImages; track $index) {
+                  @if (digitalImage) {
+                    <li class="carousel__slide">
+                        <img class="object-contain w-full" [src]="digitalImage ? `data:image/png;base64,${digitalImage}` : ''">
+                  </li>
+                  }
+                }
+              </ul>
+
+
+            </div>
+          </div>
+        </section>
+      }
+
+
+
+  </div>
+</div>

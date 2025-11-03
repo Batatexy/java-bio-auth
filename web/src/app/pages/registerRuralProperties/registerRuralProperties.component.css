@@ -1,0 +1,46 @@
+.custom-login {
+  background-image: linear-gradient(to right, var(--primary-green-4), var(--primary-brown-4));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.custom-login form {
+  background-color: var(--primary-blue-4-opacity-06);
+}
+
+input::placeholder,
+.password-icon {
+  color: #ffffff89;
+}
+
+input {
+  color: white;
+  font-size: 1rem;
+  padding-left: 1.5rem;
+  transition: border-color 0.15s ease-in-out;
+}
+
+input:focus {
+  border-bottom: 2px solid var(--primary-green-1);
+}
+
+input:-internal-autofill-selected {
+  background-color: transparent !important;
+}
+
+.custom-image-upload {
+  background-color: rgba(0, 0, 0, 0.119);
+}
+
+.custom-change-image-upload:hover {
+  opacity:100%;
+}
+
+.custom-change-image-upload {
+  opacity:0;
+  background-color: var(--primary-blue-6-2);
+  transition: opacity 0.15s ease-in-out;
+}

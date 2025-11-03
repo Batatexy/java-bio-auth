@@ -3,7 +3,6 @@ package BioAuth.api.services;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -55,11 +54,20 @@ public class UserRoleService {
 		return null;
 	}
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Transactional
 	public UserRoleMicroResponseDTO create(@Valid @NotNull UserRoleCreateDTO userRoleCreateDTO) {
-		User user = new User(); user.setId(userRoleCreateDTO.userId());
-		Role role = new Role(); role.setId(userRoleCreateDTO.roleId());
-		return new UserRoleMicroResponseDTO(userRoleRepository.save(new UserRole(user, role)).getId(), user.getId(), role.getId());
+		if (userRoleCreateDTO.create() == true) {
+			User user = new User(); user.setId(userRoleCreateDTO.userId());
+			Role role = new Role(); role.setId(userRoleCreateDTO.roleId());
+			return new UserRoleMicroResponseDTO(userRoleRepository.save(new UserRole(user, role)).getId(), user.getId(), role.getId());
+		} else {
+			UserRole userRole = userRoleRepository.findByUserIdAndRoleId(userRoleCreateDTO.userId(), userRoleCreateDTO.roleId());
+			if (userRoleCreateDTO.create() == false) {
+				userRoleRepository.delete(userRole);
+			}
+		}
+		
+		return null;
 	}
 
 	@Transactional

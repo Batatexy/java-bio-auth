@@ -85,7 +85,7 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('password', userPassword);
 
                 if (user && user.id) {
-                  this.userRolesService.create({ userId: user.id, roleId: '1' }).subscribe({
+                  this.userRolesService.changeRole({ userId: user.id, roleId: '1', create: true }).subscribe({
                     next: (role) => {
 
                     },

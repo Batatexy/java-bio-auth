@@ -1,4 +1,4 @@
-import { UserDetails } from './pages/user-details/user-details';
+import { UserDetails } from './pages/userDetails/userDetails.component';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
@@ -20,6 +20,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
       },
       {
+        path: 'rural-properties/register',
+        loadComponent: () => import('./pages/registerRuralProperties/registerRuralProperties.component').then(m => m.RegisterRuralProperties),
+      },
+      {
         path: 'rural-properties/:id',
         loadComponent: () => import('./pages/ruralPropertiesDetails/ruralPropertiesDetails.component').then(m => m.DetailsComponent),
       },
@@ -29,7 +33,7 @@ export const routes: Routes = [
       },
       {
         path: 'user-details/:id',
-        loadComponent: () => import('./pages/user-details/user-details').then(m => m.UserDetails),
+        loadComponent: () => import('./pages/userDetails/userDetails.component').then(m => m.UserDetails),
       },
     ]
   },

@@ -1,0 +1,39 @@
+
+<app-loading />
+
+<div class="w-full">
+  <form [formGroup]="loginForm" class="p-4" autocomplete="off">
+
+    <h2 class="text-2xl font-bold mb-4 text-gray-800">
+        Registrar Propriedade Rural
+    </h2>
+
+    <div (click)="fileUserInput.click()" class="custom-change-image-upload cursor-pointer size-48 relative top-48 flex justify-center items-center rounded-full">
+      <svg class="h-8 w-8"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+      </svg>
+      <input type="file" accept="image/png, image/jpeg, image/webp"
+      (change)="onFileUserChange($event); triggerTouched()"
+      #fileUserInput hidden />
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none">
+        <svg class="h-4 w-4"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+        fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>
+        <circle cx="9" cy="7" r="4" />  <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg>
+      </div>
+
+      <input formControlName="placeName" type="text" name="placeName" id="placeName" placeholder=" " class="rounded-sm block py-2.5 w-full bg-transparent border-0 border-b-2 appearance-none
+      focus:outline-none focus:ring-0 peer" />
+      <label for="placeName" class="pl-11 absolute top-3 -z-10 duration-200 transform origin-[0] peer-focus:start-0 peer-placeholder-shown:translate-x-[-1.25rem] peer-focus:-translate-x-8 -translate-x-8 peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6 -translate-y-6 peer-placeholder-shown:scale-100 scale-75 peer-focus:scale-75
+      ">Nome</label>
+    </div>
+
+    <div class="flex justify-end">
+      <button type="button" class="text-white bg-blue-color-4 hover-bg-blue-color-5 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 " (click)="onRegister()">Cadastrar</button>
+    </div>
+  </form>
+</div>

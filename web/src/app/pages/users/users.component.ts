@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UserCardComponent } from "../../components/userCard/userCard.component";
 import { UserList } from '../../models/user/userList';
 import { UserService } from '../../services/user.service';
+import { UserRoles } from '../../models/userRole/userRoles';
 
 @Component({
   selector: 'app-users',
@@ -14,8 +15,9 @@ export class UsersComponent implements OnInit {
   private userService = inject(UserService);
   private cd = inject(ChangeDetectorRef);
   userList?: UserList;
-
   private router = inject(Router);
+
+  levelPermission = false;
 
   ngOnInit() {
     this.userService.list().subscribe({
@@ -24,11 +26,22 @@ export class UsersComponent implements OnInit {
       },
       complete: () => {
         this.cd.detectChanges();
+
+        this.getUserRoles()?.roles.forEach(role => {
+          if (role.levelOrder == 3) {
+            this.levelPermission = true;
+          }
+        });
       }
     });
   }
 
   onView(ruralPropertiesId: string) {
-    this.router.navigate(['/user-details', ruralPropertiesId]);
+    if (this.levelPermission)
+      this.router.navigate(['/user-details', ruralPropertiesId]);
+  }
+
+  getUserRoles(): UserRoles | undefined {
+    return this.userService.getUserRoles()
   }
 }
