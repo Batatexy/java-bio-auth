@@ -22,15 +22,95 @@
       <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none">
         <svg class="h-4 w-4"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
         fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>
-        <circle cx="9" cy="7" r="4" />  <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-        <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg>
+        <path d="M3 21h7v-3a2 2 0 0 1 4 0v3h7" />  <line x1="6" y1="21" x2="6" y2="12" />  <line x1="18" y1="21" x2="18" y2="12" />
+        <path d="M6 12h12a3 3 0 0 0 3 -3a9 8 0 0 1 -9 -6a9 8 0 0 1 -9 6a3 3 0 0 0 3 3" /></svg>
       </div>
 
       <input formControlName="placeName" type="text" name="placeName" id="placeName" placeholder=" " class="rounded-sm block py-2.5 w-full bg-transparent border-0 border-b-2 appearance-none
       focus:outline-none focus:ring-0 peer" />
       <label for="placeName" class="pl-11 absolute top-3 -z-10 duration-200 transform origin-[0] peer-focus:start-0 peer-placeholder-shown:translate-x-[-1.25rem] peer-focus:-translate-x-8 -translate-x-8 peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6 -translate-y-6 peer-placeholder-shown:scale-100 scale-75 peer-focus:scale-75
-      ">Nome</label>
+      ">Nome da Propriedade</label>
     </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none">
+        <svg class="h-4 w-4"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+        fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>
+        <circle cx="9" cy="7" r="4" />  <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg>
+      </div>
+
+      <input formControlName="ownerName" type="text" name="ownerName" id="ownerName" placeholder=" " class="rounded-sm block py-2.5 w-full bg-transparent border-0 border-b-2 appearance-none
+      focus:outline-none focus:ring-0 peer" />
+      <label for="ownerName" class="pl-11 absolute top-3 -z-10 duration-200 transform origin-[0] peer-focus:start-0 peer-placeholder-shown:translate-x-[-1.25rem] peer-focus:-translate-x-8 -translate-x-8 peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6 -translate-y-6 peer-placeholder-shown:scale-100 scale-75 peer-focus:scale-75
+      ">Nome do Dono da Propriedade</label>
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none">
+        <svg class="h-4 w-4"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+      </svg>
+      </div>
+
+      <input formControlName="address" type="text" name="address" id="address" placeholder=" " class="rounded-sm block py-2.5 w-full bg-transparent border-0 border-b-2 appearance-none
+      focus:outline-none focus:ring-0 peer" />
+      <label for="address" class="pl-11 absolute top-3 -z-10 duration-200 transform origin-[0] peer-focus:start-0 peer-placeholder-shown:translate-x-[-1.25rem] peer-focus:-translate-x-8 -translate-x-8 peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6 -translate-y-6 peer-placeholder-shown:scale-100 scale-75 peer-focus:scale-75
+      ">Endereço</label>
+    </div>
+
+
+    <div class="relative z-0 w-full mb-5 group">
+      <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none">
+        <svg class="h-4 w-4"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+        fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="4"
+        y1="19" x2="20" y2="19" />  <polyline points="4 15 8 9 12 11 16 6 20 10 20 15 4 15" /></svg>
+      </div>
+
+      <input formControlName="size" type="number" name="size" id="size" placeholder=" " class="rounded-sm block py-2.5 w-full bg-transparent border-0 border-b-2 appearance-none
+      focus:outline-none focus:ring-0 peer" />
+      <label for="size" class="pl-11 absolute top-3 -z-10 duration-200 transform origin-[0] peer-focus:start-0 peer-placeholder-shown:translate-x-[-1.25rem] peer-focus:-translate-x-8 -translate-x-8 peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6 -translate-y-6 peer-placeholder-shown:scale-100 scale-75 peer-focus:scale-75
+      ">Tamanho</label>
+    </div>
+
+
+
+
+
+    <div class="relative z-0 w-full mb-5 group">
+      <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none">
+        <svg class="h-4 w-4"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+        fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>
+        <path d="M12 9v2m0 4v.01" />
+        <path d="M5.07 19H19a2 2 0 0 0 1.75 -2.75L13.75 4a2 2 0 0 0 -3.5 0L3.25 16.25a2 2 0 0 0 1.75 2.75" /></svg>
+      </div>
+
+      <input formControlName="agroChemicals" type="number" name="agroChemicals" id="agroChemicals" placeholder=" " class="rounded-sm block py-2.5 w-full bg-transparent border-0 border-b-2 appearance-none
+      focus:outline-none focus:ring-0 peer" />
+      <label for="agroChemicals" class="pl-11 absolute top-3 -z-10 duration-200 transform origin-[0] peer-focus:start-0 peer-placeholder-shown:translate-x-[-1.25rem] peer-focus:-translate-x-8 -translate-x-8 peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6 -translate-y-6 peer-placeholder-shown:scale-100 scale-75 peer-focus:scale-75
+      ">Agrotóxicos</label>
+    </div>
+
+
+    agrochemicalsLevelOrder
+
+levelOrder
+
+<svg class="h-4 w-4"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>
+ <line x1="4" y1="6" x2="20" y2="6" />  <line x1="4" y1="12" x2="20" y2="12" />  <line x1="4" y1="18" x2="16" y2="18" /></svg>
+
+
+<svg class="h-4 w-4"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"
+stroke-linecap="round"  stroke-linejoin="round">  <line x1="12" y1="20" x2="12" y2="10" />
+<line x1="18" y1="20" x2="18" y2="4" />  <line x1="6" y1="20" x2="6" y2="16" /></svg>
+
+
+<svg class="h-4 w-4"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>
+<circle cx="7" cy="17" r="1" />  <circle cx="12" cy="12" r="1" />  <circle cx="17" cy="7" r="1" /></svg>
+
 
     <div class="flex justify-end">
       <button type="button" class="text-white bg-blue-color-4 hover-bg-blue-color-5 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 " (click)="onRegister()">Cadastrar</button>
