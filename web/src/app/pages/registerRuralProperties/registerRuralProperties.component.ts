@@ -37,9 +37,7 @@ export class RegisterRuralProperties implements OnInit {
   loginForm!: FormGroup;
   screen: number = 0;
 
-  previewRuralPropertiesUrl: string = '/no-profile-image.png';
-  previewDigitalUrl: string[] = ['/finger-print-image.png'];
-  errorMessage = '';
+  previewRuralPropertiesUrl: string = '/initial-rural-properties-image.png';
   acceptedFormats = ['image/jpeg', 'image/png', 'image/webp'];
   maxSizeMB = 2;
 
@@ -61,7 +59,7 @@ export class RegisterRuralProperties implements OnInit {
 
   onRegister() {
     if (this.loginForm.invalid) {
-      this.errorMessage = 'Preencha todos os campos obrigatórios.';
+      alert('Preencha todos os campos obrigatórios.');
       return;
     }
 
@@ -91,18 +89,17 @@ export class RegisterRuralProperties implements OnInit {
     if (!input.files?.length) return;
 
     const file = input.files[0];
-    this.errorMessage = '';
 
     const isValidFormat = this.acceptedFormats.includes(file.type);
     const isValidSize = file.size / 1024 / 1024 <= this.maxSizeMB;
 
     if (!isValidFormat) {
-      this.errorMessage = 'Formato inválido. Use JPG, PNG ou WEBP.';
+      alert('Formato inválido. Use JPG, PNG ou WEBP.');
       return;
     }
 
     if (!isValidSize) {
-      this.errorMessage = `A imagem deve ter no máximo ${this.maxSizeMB}MB.`;
+      alert(`A imagem deve ter no máximo ${this.maxSizeMB}MB.`);
       return;
     }
 

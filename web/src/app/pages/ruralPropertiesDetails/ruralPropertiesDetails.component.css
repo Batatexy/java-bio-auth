@@ -1,4 +1,5 @@
 .rural-details{
   background-image: linear-gradient(rgba(255, 255, 255, 0) 0%, white
-  60%, white 100%);
+  40%, white 100%);
+  width: 100%;
 }

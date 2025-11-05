@@ -1,4 +1,5 @@
 <div class="relative h-[100vh] flex justify-center overflow-hidden">
+
   <div
     class="absolute inset-0 bg-center bg-cover filter blur-md scale-110 transform"
     [ngStyle]="{ 'background-image': 'url(data:image/png;base64,' + ruralProperties?.image + ')' }"
@@ -6,26 +7,28 @@
 
   <div class="absolute inset-0 bg-black/40"></div>
 
-  <div class="rural-details relative z-10 text-white p-10">
-    <div class="grid grid-cols-2 gap-12">
+  <div class="rural-details relative z-10 text-white p-6 flex flex-col items-center">
+    <div class="grid grid-cols-2 gap-12 w-full xl:w-220">
       <div class="flex justify-end">
         <img
-          [src]="'data:image/png;base64,' + ruralProperties?.image"
-          class="rounded-xl object-cover"
+          [src]="ruralProperties?.image ? `data:image/png;base64,${ruralProperties?.image}` : '/no-rural-properties-image.png'"
+          class="rounded-xl object-cover h-64"
         />
       </div>
 
-      <div>
-        <h2 class="text-4xl font-bold">{{ ruralProperties?.placeName }}</h2>
-        <p class="text-xl">Endereço: {{ ruralProperties?.address }}</p>
-        <p class="text-xl">Proprietário: {{ ruralProperties?.ownerName }}</p>
-        <p class="text-xl">Tamanho: {{ ruralProperties?.size }} m²</p>
-        <p class="text-xl">Agrotóxico: {{ ruralProperties?.agroChemicals }}</p>
+      <div  class="relative top-4 ">
+        <div>
+        <h2 class="pb-2 text-4xl font-bold">{{ ruralProperties?.placeName }}</h2>
+        <p class="text-xl"><span class="font-semibold">Endereço:</span> {{ ruralProperties?.address }}</p>
+        <p class="text-xl"><span class="font-semibold">Proprietário:</span> {{ ruralProperties?.ownerName }}</p>
+        <p class="text-xl"><span class="font-semibold">Tamanho:</span> {{ ruralProperties?.size }} m²</p>
+        <p class="text-xl"><span class="font-semibold">Agrotóxico:</span> {{ ruralProperties?.agroChemicals }}</p>
+      </div>
       </div>
     </div>
 
-    <div class="flex justify-center pt-4">
-      <p class="text-xl text-left w-full">
+    <div class="flex justify-center pt-4 w-full xl:w-220">
+      <p class="text-xl text-black text-left w-full">
         {{ ruralProperties?.description }}
       </p>
     </div>

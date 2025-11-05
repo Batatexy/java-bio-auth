@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
 
   previewUserUrl: string = '/no-profile-image.png';
   previewDigitalUrl: string[] = ['/finger-print-image.png'];
-  errorMessage = '';
   acceptedFormats = ['image/jpeg', 'image/png', 'image/webp'];
   maxSizeMB = 2;
 
@@ -55,7 +54,7 @@ export class LoginComponent implements OnInit {
 
   onRegister() {
     if (this.loginForm.invalid) {
-      this.errorMessage = 'Preencha todos os campos obrigatórios.';
+      alert('Preencha todos os campos obrigatórios.')
       return;
     }
 
@@ -138,18 +137,17 @@ export class LoginComponent implements OnInit {
     if (!input.files?.length) return;
 
     const file = input.files[0];
-    this.errorMessage = '';
 
     const isValidFormat = this.acceptedFormats.includes(file.type);
     const isValidSize = file.size / 1024 / 1024 <= this.maxSizeMB;
 
     if (!isValidFormat) {
-      this.errorMessage = 'Formato inválido. Use JPG, PNG ou WEBP.';
+      alert('Formato inválido. Use JPG, PNG ou WEBP.')
       return;
     }
 
     if (!isValidSize) {
-      this.errorMessage = `A imagem deve ter no máximo ${this.maxSizeMB}MB.`;
+      alert(`A imagem deve ter no máximo ${this.maxSizeMB}MB.`)
       return;
     }
 
@@ -165,7 +163,6 @@ export class LoginComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (!input.files?.length) return;
 
-    this.errorMessage = '';
     const files = Array.from(input.files);
     const validFiles: File[] = [];
     const previews: string[] = [];
@@ -175,12 +172,12 @@ export class LoginComponent implements OnInit {
       const isValidSize = file.size / 1024 / 1024 <= this.maxSizeMB;
 
       if (!isValidFormat) {
-        this.errorMessage = 'Formato inválido. Use JPG, PNG ou WEBP.';
+        alert('Formato inválido. Use JPG, PNG ou WEBP.')
         continue;
       }
 
       if (!isValidSize) {
-        this.errorMessage = `A imagem deve ter no máximo ${this.maxSizeMB}MB.`;
+        alert(`A imagem deve ter no máximo ${this.maxSizeMB}MB.`)
         continue;
       }
 
