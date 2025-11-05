@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable, take } from 'rxjs';
 import { RuralProperties } from '../models/ruralProperties/ruralProperties';
 import { RuralPropertiesList } from '../models/ruralProperties/ruralPropertiesList';
+import { RuralPropertiesCreate } from '../models/ruralProperties/ruralPropertiesCreate';
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +20,18 @@ export class RuralPropertiesService {
     return this.httpClient.get<RuralProperties>(`${this.API_URL}/${id}`).pipe(take(1));
   }
 
-  // create(assessment: AssessmentCreate) {
-  //   return this.httpClient.post<AssessmentResponse>(`${this.API_URL}`, assessment, { withCredentials: true, }).pipe(take(1));
-  // }
+  register(ruralProperties: RuralPropertiesCreate, image: File | null) {
+    const formData = new FormData();
+    formData.append(
+      'data',
+      new Blob([JSON.stringify(ruralProperties)], { type: 'application/json' })
+    );
+    if (image) {
+      formData.append('image', image);
+    }
+
+    return this.httpClient.post<RuralProperties>(`${this.API_URL}`, formData);
+  }
 
   // update(id: string, assessment: AssessmentUpdate) {
   //   return this.httpClient.put<AssessmentResponse>(`${this.API_URL}/${id}`, assessment, { withCredentials: true, }).pipe(take(1));

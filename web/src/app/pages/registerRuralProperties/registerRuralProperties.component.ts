@@ -1,3 +1,4 @@
+import { RuralProperties } from './../../models/ruralProperties/ruralProperties';
 import { UserRolesService } from '../../services/userRoles.service';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
@@ -13,6 +14,8 @@ import { LoadingComponent } from "../../components/loading/loading.component";
 import { UserCreate } from '../../models/user/userCreate';
 import { UserService } from '../../services/user.service';
 import { UserRoles } from '../../models/userRole/userRoles';
+import { RuralPropertiesService } from '../../services/ruralProperties.service';
+import { RuralPropertiesCreate } from '../../models/ruralProperties/ruralPropertiesCreate';
 
 @Component({
   selector: 'app-login',
@@ -27,25 +30,25 @@ import { UserRoles } from '../../models/userRole/userRoles';
 })
 export class RegisterRuralProperties implements OnInit {
   private router = inject(Router);
-  private userService = inject(UserService);
+  private ruralPropertiesService = inject(RuralPropertiesService);
   private userRolesService = inject(UserRolesService);
   private formBuilder = inject(FormBuilder);
 
   loginForm!: FormGroup;
   screen: number = 0;
 
-  previewUserUrl: string = '/no-profile-image.png';
+  previewRuralPropertiesUrl: string = '/no-profile-image.png';
   previewDigitalUrl: string[] = ['/finger-print-image.png'];
   errorMessage = '';
   acceptedFormats = ['image/jpeg', 'image/png', 'image/webp'];
   maxSizeMB = 2;
 
-  userImageFile: File | null = null;
-  userFingerPrintFiles: File[] = [];
+  ruralPropertiesImageFile: File | null = null;
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       placeName: ['', Validators.required],
+      description: ['', Validators.required],
       ownerName: ['', Validators.required],
       address: ['', Validators.required],
       size: ['', Validators.required],
@@ -62,47 +65,23 @@ export class RegisterRuralProperties implements OnInit {
       return;
     }
 
-    const { email, name, userPassword } = this.loginForm.value;
+    const ruralProperties: RuralPropertiesCreate = {
+      placeName: this.loginForm.value.placeName,
+      description: this.loginForm.value.description,
+      ownerName: this.loginForm.value.ownerName,
+      address: this.loginForm.value.address,
+      size: this.loginForm.value.size,
+      agroChemicals: this.loginForm.value.agroChemicals,
+      agrochemicalsLevelOrder: this.loginForm.value.agrochemicalsLevelOrder,
+      levelOrder: this.loginForm.value.levelOrder,
+    };
 
-    this.userService.findByEmail({ email }).subscribe({
-      next: (user) => {
-        if (user == 1) {
-          alert('Email já cadastrado.');
-          return;
-        } else {
-          const register: UserCreate = {
-            fullName: name,
-            email,
-            password: userPassword
-          };
+    this.ruralPropertiesService.register(ruralProperties, this.ruralPropertiesImageFile).subscribe({
+      next: () => {
 
-          this.userService.register(register, this.userImageFile, this.userFingerPrintFiles).subscribe({
-            next: (user) => {
-              console.log('Usuário registrado:', user);
-              this.userService.setUser(user);
-            },
-            complete: () => {
-              const user = this.userService.getUserRoles()?.user
-              if (user) {
-                localStorage.setItem('email', email);
-                localStorage.setItem('password', userPassword);
-
-                if (user && user.id) {
-                  this.userRolesService.changeRole({ userId: user.id, roleId: '1', create: true }).subscribe({
-                    next: (role) => {
-
-                    }
-                  });
-                }
-
-
-              } else {
-                alert('Falha no login.');
-                return;
-              }
-            }
-          });
-        }
+      },
+      complete: () => {
+        this.router.navigate(['/dashboard']);
       }
     });
   }
@@ -129,46 +108,10 @@ export class RegisterRuralProperties implements OnInit {
 
     const reader = new FileReader();
     reader.onload = () => {
-      this.previewUserUrl = reader.result as string;
-      this.userImageFile = file;
+      this.previewRuralPropertiesUrl = reader.result as string;
+      this.ruralPropertiesImageFile = file;
     };
     reader.readAsDataURL(file);
-  }
-
-  onFileDigitalChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (!input.files?.length) return;
-
-    this.errorMessage = '';
-    const files = Array.from(input.files);
-    const validFiles: File[] = [];
-    const previews: string[] = [];
-
-    for (const file of files) {
-      const isValidFormat = this.acceptedFormats.includes(file.type);
-      const isValidSize = file.size / 1024 / 1024 <= this.maxSizeMB;
-
-      if (!isValidFormat) {
-        this.errorMessage = 'Formato inválido. Use JPG, PNG ou WEBP.';
-        continue;
-      }
-
-      if (!isValidSize) {
-        this.errorMessage = `A imagem deve ter no máximo ${this.maxSizeMB}MB.`;
-        continue;
-      }
-
-      validFiles.push(file);
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        previews.push(reader.result as string);
-        this.previewDigitalUrl = [...previews];
-      };
-      reader.readAsDataURL(file);
-    }
-
-    this.userFingerPrintFiles = validFiles;
   }
 
   private onChange = (files: File[] | null) => { };

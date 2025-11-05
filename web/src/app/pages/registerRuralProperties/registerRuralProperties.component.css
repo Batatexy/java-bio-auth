@@ -9,6 +9,10 @@ input:focus {
   border-bottom: 2px solid var(--primary-blue-2);
 }
 
+.custom-input{
+  accent-color: var(--primary-blue-4);
+}
+
 input:-internal-autofill-selected {
   background-color: transparent !important;
 }
