@@ -1,4 +1,3 @@
-import { UserRolesService } from './../../services/userRoles.service';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import {
@@ -12,7 +11,7 @@ import { Router } from '@angular/router';
 import { LoadingComponent } from "../../components/loading/loading.component";
 import { UserCreate } from '../../models/user/userCreate';
 import { UserService } from '../../services/user.service';
-import { UserRoles } from '../../models/userRole/userRoles';
+import { UserRolesService } from './../../services/userRoles.service';
 
 @Component({
   selector: 'app-login',
@@ -36,11 +35,13 @@ export class LoginComponent implements OnInit {
 
   previewUserUrl: string = '/no-profile-image.png';
   previewDigitalUrl: string[] = ['/finger-print-image.png'];
+  loginUrl: string = '';
   acceptedFormats = ['image/jpeg', 'image/png', 'image/webp'];
   maxSizeMB = 2;
 
   userImageFile: File | null = null;
   userFingerPrintFiles: File[] = [];
+  loginImageFile: File | null = null;
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -48,7 +49,8 @@ export class LoginComponent implements OnInit {
       name: ['', Validators.required],
       userPassword: ['', Validators.required],
       userImage: [''],
-      userFingerPrints: [[]]
+      userFingerPrints: [[]],
+      loginDigitalImage: [''],
     });
   }
 
@@ -120,7 +122,7 @@ export class LoginComponent implements OnInit {
         complete: () => {
           const savedUser = this.userService.getUserRoles();
           if (!savedUser) {
-            alert('Login failed');
+            alert('Usuário não encontrado');
             return;
           } else {
             localStorage.setItem('email', this.loginForm.value.email);
@@ -131,6 +133,45 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+
+
+
+
+
+  onLoginWithDigital() {
+    if (this.loginImageFile) {
+      this.userService.findByDigitalImage(this.loginImageFile).subscribe({
+        next: (userRoles) => {
+          this.userService.setUserRoles(userRoles);
+        },
+        complete: () => {
+          const savedUser = this.userService.getUserRoles();
+          if (!savedUser) {
+            // alert('Usuário não encontrado');
+            return;
+          } else {
+            localStorage.setItem('email', this.loginForm.value.email);
+            localStorage.setItem('password', this.loginForm.value.userPassword);
+            this.router.navigate(['/dashboard']);
+          }
+        },
+        error: () => {
+          // alert('Erro ao entrar com imagem de digital')
+        }
+      });
+    }
+
+
+  }
+
+
+
+
+
+
+
+
+
 
   onFileUserChange(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -194,10 +235,43 @@ export class LoginComponent implements OnInit {
     this.userFingerPrintFiles = validFiles;
   }
 
-  private onChange = (files: File[] | null) => { };
-  registerOnChange(fn: (value: File[] | null) => void): void {
-    this.onChange = fn;
+
+
+  onLoginImageFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
+
+    const file = input.files[0];
+
+    const isValidFormat = this.acceptedFormats.includes(file.type);
+    const isValidSize = file.size / 1024 / 1024 <= this.maxSizeMB;
+
+    if (!isValidFormat) {
+      alert('Formato inválido. Use JPG, PNG ou WEBP.')
+      return;
+    }
+
+    if (!isValidSize) {
+      alert(`A imagem deve ter no máximo ${this.maxSizeMB}MB.`)
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.loginUrl = reader.result as string;
+      this.loginImageFile = file;
+    };
+    reader.readAsDataURL(file);
+
+    setTimeout(() => {
+      this.onLoginWithDigital();
+    }, 25);
   }
+
+
+
+
+
 
   private onTouched = () => { };
   registerOnTouched(fn: () => void): void {

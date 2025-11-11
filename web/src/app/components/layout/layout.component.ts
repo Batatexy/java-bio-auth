@@ -14,12 +14,17 @@ export class LayoutComponent {
   private router = inject(Router);
   private userService = inject(UserService);
 
-  levelPermission = false;
+  levelPermission2 = false;
+  levelPermission3 = false;
 
   ngOnInit() {
     this.getUserRoles()?.roles.forEach(role => {
-      if (role.levelOrder == 2 || role.levelOrder == 3) {
-        this.levelPermission = true;
+      if (role.levelOrder == 2) {
+        this.levelPermission2 = true;
+      }
+
+      if (role.levelOrder == 3) {
+        this.levelPermission3 = true;
       }
     });
   }

@@ -17,7 +17,8 @@ export class UsersComponent implements OnInit {
   userList?: UserList;
   private router = inject(Router);
 
-  levelPermission = false;
+  levelPermission2 = false;
+  levelPermission3 = false;
 
   ngOnInit() {
     this.userService.list().subscribe({
@@ -28,8 +29,12 @@ export class UsersComponent implements OnInit {
         this.cd.detectChanges();
 
         this.getUserRoles()?.roles.forEach(role => {
+          if (role.levelOrder == 2) {
+            this.levelPermission2 = true;
+          }
+
           if (role.levelOrder == 3) {
-            this.levelPermission = true;
+            this.levelPermission3 = true;
           }
         });
       }
@@ -37,7 +42,7 @@ export class UsersComponent implements OnInit {
   }
 
   onView(ruralPropertiesId: string) {
-    if (this.levelPermission)
+    if (this.levelPermission2 && this.levelPermission3)
       this.router.navigate(['/user-details', ruralPropertiesId]);
   }
 

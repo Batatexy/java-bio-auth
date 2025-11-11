@@ -1,4 +1,4 @@
-@if (levelPermission){
+@if (levelPermission2 && levelPermission3){
   <div class="fixed bottom-2 right-2 z-1000">
     <button type="button" (click)="registerRuralProperties()"
     class="text-white bg-blue-color-4 hover-bg-blue-color-5 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ">
@@ -12,7 +12,9 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 items-stretch">
     @for (ruralProperties of ruralPropertiesList?.ruralProperties; track $index)
     {
-      <app-rural-properties-card [ruralProperties]="ruralProperties" (click)="onView(ruralProperties.id)" />
+      @if ((ruralProperties.levelOrder == 1) || (ruralProperties.levelOrder >= 2 && levelPermission2) || (ruralProperties.levelOrder == 2 && levelPermission3)) {
+        <app-rural-properties-card [ruralProperties]="ruralProperties" (click)="onView(ruralProperties.id)" />
+      }
     }
   </div>
 </div>

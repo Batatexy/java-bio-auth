@@ -1,7 +1,9 @@
 package BioAuth.api.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,10 +28,15 @@ public class UserRoleService {
 	private final UserRoleRepository userRoleRepository;
 	private final UserRoleMapper userRoleMapper;
 
-	public UserRoleService(UserRoleRepository userRoleRepository, UserRoleMapper userRoleMapper) {
+	@Autowired
+	private BiometricService biometricService;
+
+	public UserRoleService(UserRoleRepository userRoleRepository, UserRoleMapper userRoleMapper,
+			BiometricService biometricService) {
 		super();
 		this.userRoleRepository = userRoleRepository;
 		this.userRoleMapper = userRoleMapper;
+		this.biometricService = biometricService;
 	}
 
 	public UserRoleResponseDTO findByUserId(@NotNull Long userId) {
@@ -45,13 +52,29 @@ public class UserRoleService {
 	}
 
 	public UserRoleResponseDTO findByDigitalImage(MultipartFile digitalImage) {
-		List<UserRoleProjection> allUserRoles = userRoleRepository.findAllUserRoles();
-		
-		// Implementar Algoritmo de Digital
-		
-		
 
-		return null;
+		List<UserRoleProjection> allUserRoles = userRoleRepository.findAllUserRoles();
+
+		Long matchedUserId = null;
+
+		for (UserRoleProjection userRole : allUserRoles) {
+			if (biometricService.checkDigitalMatch(digitalImage, userRole.getDigitalImage1())
+					|| biometricService.checkDigitalMatch(digitalImage, userRole.getDigitalImage2())
+					|| biometricService.checkDigitalMatch(digitalImage, userRole.getDigitalImage3())
+					|| biometricService.checkDigitalMatch(digitalImage, userRole.getDigitalImage4())
+					|| biometricService.checkDigitalMatch(digitalImage, userRole.getDigitalImage5())
+					|| biometricService.checkDigitalMatch(digitalImage, userRole.getDigitalImage6())) {
+
+				matchedUserId = userRole.getUserId();
+				break;
+			}
+		}
+
+		final Long finalMatchedUserId = matchedUserId;
+		List<UserRoleProjection> checkedUserRoleProjection = allUserRoles.stream()
+				.filter(userRole -> userRole.getUserId().equals(finalMatchedUserId)).collect(Collectors.toList());
+
+		return userRoleMapper.toDTO(checkedUserRoleProjection);
 	}
 
 	@Transactional

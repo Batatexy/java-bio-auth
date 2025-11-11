@@ -49,9 +49,6 @@ export class UserDetails {
               }
             });
           });
-
-          console.log(this.selectedRoles);
-
         },
         error: (error) => {
           this.router.navigate(['/dashboard']);

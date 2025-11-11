@@ -22,7 +22,10 @@
         <p class="text-xl"><span class="font-semibold">Endereço:</span> {{ ruralProperties?.address }}</p>
         <p class="text-xl"><span class="font-semibold">Proprietário:</span> {{ ruralProperties?.ownerName }}</p>
         <p class="text-xl"><span class="font-semibold">Tamanho:</span> {{ ruralProperties?.size }} m²</p>
-        <p class="text-xl"><span class="font-semibold">Agrotóxico:</span> {{ ruralProperties?.agroChemicals }}</p>
+
+        @if (levelPermission3) {
+          <p class="text-xl"><span class="font-semibold">Agrotóxico:</span> {{ ruralProperties?.agroChemicals }}</p>
+        }
       </div>
       </div>
     </div>

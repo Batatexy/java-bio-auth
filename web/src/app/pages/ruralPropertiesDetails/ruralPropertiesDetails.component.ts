@@ -22,6 +22,9 @@ export class DetailsComponent implements OnInit {
   id: string | null = null;
   ruralProperties?: RuralProperties;
 
+  levelPermission2 = false;
+  levelPermission3 = false;
+
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get("id");
 
@@ -32,6 +35,15 @@ export class DetailsComponent implements OnInit {
         },
         complete: () => {
           this.cd.detectChanges();
+          this.getUserRoles()?.roles.forEach(role => {
+            if (role.levelOrder == 2) {
+              this.levelPermission2 = true;
+            }
+
+            if (role.levelOrder == 3) {
+              this.levelPermission3 = true;
+            }
+          });
         },
         error: (error) => {
           this.router.navigate(['/dashboard']);

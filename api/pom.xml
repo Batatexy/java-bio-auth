@@ -65,10 +65,21 @@
         </dependency>
         
 		<dependency>
-    	<groupId>org.hibernate.orm</groupId>
-    	<artifactId>hibernate-community-dialects</artifactId>
-    	
-	</dependency>
+    		<groupId>org.hibernate.orm</groupId>
+    		<artifactId>hibernate-community-dialects</artifactId>
+		</dependency>
+						
+		<dependency>
+      		<groupId>org.boofcv</groupId>
+      		<artifactId>boofcv-all</artifactId>
+      		<version>1.2.4</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.machinezoo.sourceafis</groupId>
+		    <artifactId>sourceafis</artifactId>
+		    <version>3.18.0</version>
+		</dependency>
 
     </dependencies>
 

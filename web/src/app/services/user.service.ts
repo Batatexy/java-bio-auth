@@ -30,7 +30,7 @@ export class UserService {
     return this.httpClient.post<UserRoles>(`${this.API_URL}/me`, this.tryLogin).pipe(take(1));
   }
 
-  findByDigitalImage(digitalImage: File | null) {
+  findByDigitalImage(digitalImage: File) {
     const formData = new FormData();
     if (digitalImage) {
       formData.append('digitalImage', digitalImage);

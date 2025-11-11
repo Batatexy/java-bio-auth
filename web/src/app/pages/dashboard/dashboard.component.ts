@@ -19,7 +19,8 @@ export class DashboardComponent implements OnInit {
   ruralPropertiesList?: RuralPropertiesList;
   private router = inject(Router);
 
-  levelPermission = false;
+  levelPermission2 = false;
+  levelPermission3 = false;
 
   ngOnInit() {
     this.ruralPropertiesService.list().subscribe({
@@ -28,10 +29,13 @@ export class DashboardComponent implements OnInit {
       },
       complete: () => {
         this.cd.detectChanges();
-
         this.getUserRoles()?.roles.forEach(role => {
-          if (role.levelOrder == 2 || role.levelOrder == 3) {
-            this.levelPermission = true;
+          if (role.levelOrder == 2) {
+            this.levelPermission2 = true;
+          }
+
+          if (role.levelOrder == 3) {
+            this.levelPermission3 = true;
           }
         });
       }
@@ -39,12 +43,11 @@ export class DashboardComponent implements OnInit {
   }
 
   onView(ruralPropertiesId: string) {
-    if (this.levelPermission)
-      this.router.navigate(['/rural-properties', ruralPropertiesId]);
+    this.router.navigate(['/rural-properties', ruralPropertiesId]);
   }
 
   registerRuralProperties() {
-    if (this.levelPermission)
+    if (this.levelPermission2 || this.levelPermission3)
       this.router.navigate(['/rural-properties/register']);
   }
 
