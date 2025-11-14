@@ -70,7 +70,7 @@ export class RegisterRuralProperties implements OnInit {
       address: this.loginForm.value.address,
       size: this.loginForm.value.size,
       agroChemicals: this.loginForm.value.agroChemicals,
-      agrochemicalsLevelOrder: this.loginForm.value.agrochemicalsLevelOrder,
+      agrochemicalsLevelOrder: 1,
       levelOrder: this.loginForm.value.levelOrder,
     };
 
